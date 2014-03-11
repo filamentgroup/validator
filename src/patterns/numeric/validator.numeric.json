@@ -1,0 +1,3 @@
+var numeric = {
+	"pattern": "[0-9]*"
+};
