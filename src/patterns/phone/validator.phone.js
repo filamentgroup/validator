@@ -1,4 +1,13 @@
-Validator.prototype.validatephone = function( val ){
+/*
+ * validator plugin
+ *
+ * Copyright (c) 2013 Filament Group, Inc.
+ * Licensed under MIT
+ */
+
+/* global Validator:true */
+(function( Validator, $, window, undefined ) {
+	Validator.prototype.validatephone = function( val ){
 		var validator = this.data.config.validator,
 			result = false;
 
@@ -8,3 +17,5 @@ Validator.prototype.validatephone = function( val ){
 
 		return result;
 	};
+
+}( this.Validator, this.jQuery, this ));

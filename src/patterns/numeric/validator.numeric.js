@@ -8,14 +8,15 @@
 /* global Validator:true */
 (function( Validator, $, window, undefined ) {
 
-	Validator.prototype.validateemail = function( address ){
+	Validator.prototype.validatenumeric = function( address ){
 		var validator = this.data.config.validator,
 			result = false;
 
-		if ( new RegExp( validator.email.pattern ).test( address ) ) {
+		if ( new RegExp( validator.numeric.pattern ).test( address ) ) {
 			result = address;
 		}
 
 		return result;
 	};
+
 }( this.Validator, this.jQuery, this ));

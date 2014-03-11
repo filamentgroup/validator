@@ -1,4 +1,14 @@
-Validator.prototype.validatepassword = function( val ){
+/*
+ * validator plugin
+ *
+ * Copyright (c) 2013 Filament Group, Inc.
+ * Licensed under MIT
+ */
+
+/* global Validator:true */
+(function( Validator, $, window, undefined ) {
+
+	Validator.prototype.validatepassword = function( val ){
 		// TODO move functions out to methods
 		var result = false,
 			isCorrectLength = function( pw ){
@@ -29,4 +39,5 @@ Validator.prototype.validatepassword = function( val ){
 		return result;
 	};
 
-	
+
+}( this.Validator, this.jQuery, this ));

@@ -1,4 +1,14 @@
-Validator.prototype.validatepasswordconfirm = function( val ){
+/*
+ * validator plugin
+ *
+ * Copyright (c) 2013 Filament Group, Inc.
+ * Licensed under MIT
+ */
+
+/* global Validator:true */
+(function( Validator, $, window, undefined ) {
+
+	Validator.prototype.validatepasswordconfirm = function( val ){
 		var passwords = $( this.element ).closest( "form" ).find( "[data-validate=password]" ),
 			result = false,
 			pw;
@@ -12,3 +22,5 @@ Validator.prototype.validatepasswordconfirm = function( val ){
 
 		return result;
 	};
+
+}( this.Validator, this.jQuery, this ));
