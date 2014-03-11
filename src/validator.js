@@ -23,96 +23,16 @@
 		var $element = $( this.element );
 		this.type = $element.attr( "data-validate" );
 		this.required = $element.attr( "required" ) !== null;
-
-		var $contain = $element.closest( "[data-validate-group]" );
-		this.grouptype = $contain.length ? $contain.attr( "data-validate-group" ) : false;
 	};
 
-	// TODO use extend to save bytes on "prototype"
 	Validator.prototype.validate = function(){
 		var value = this.element.value,
-			hasValue = this.hasValue(),
-			result = this._isValid( value ),
-			$el = $( this.opts.applyElement ),
-			$input = $( this.element ),
-			cfg,
-			copy,
-			showMessageBelow = $el.next().length < $el.prev().length,
-			$listview = $el.closest( '.listview,.error-anchor' ).last(),
-			previousTitle,
-			type = this.grouptype || this.type,
-			msg = $listview.siblings().filter( '[data-validate-message="' + type + '"]' ),
-			pageErrors = $listview.siblings().filter( '.errors' ),
-			hasPageErrors = pageErrors.length;
+			result = this._isValid( value );
 
-		$el[ result ? "removeClass" : "addClass" ]( this.opts.validatorClass );
-
-		// valid
-		if( result ) {
-			previousTitle = $input.attr( 'data-title' );
-			if( previousTitle ) {
-				$input.attr( 'title', previousTitle );
-				$input.removeAttr( 'data-title' );
-			}
-		}
-
-		if( $listview.length && ( !hasPageErrors || result ) ) {
-			msg.transEnd( function(){
-				msg.remove();
-			});
-
-			pageErrors.transEnd( function(){
-				pageErrors.remove();
-			});
-		}
-
-		// invalid, has a type (necessary for grabbing the correct message from data), and the error message isn't already showing
-		if( !result && hasValue && type ) {
-			cfg = this.data.config.validator[ type ];
-			copy = this.data.copy.validator[ type ];
-
-			var message = this[ 'message' + type ] ? this[ 'message' + type ]( value ) : copy.message,
-				$error;
-
-			// show page-level message
-
-			// TODO trigger event instead??
-			if ( this.grouptype && message && !hasPageErrors ) {
-				$error = $( sb.controller.render( "_form-error", {
-					error: {
-						type: this.grouptype,
-						message: message
-					}
-				}));
-
-				if( $listview.length ) {
-					$listview.before( $error );
-				}
-				return;
-			}
-
-			// or show field-specific messages
-			if ( !this.grouptype && message ) {
-				$error = $( sb.controller.render( "_form-inline-error", {
-					type: type,
-					message: message
-				}));
-
-				previousTitle = $input.attr( 'title' );
-				if( previousTitle ) {
-					$input.attr( 'data-title', previousTitle );
-				}
-
-				$input.attr( 'title', message );
-
-				if( $listview.length ) {
-					$listview[ showMessageBelow ? 'after' : 'before' ]( $error );
-				}
-			}
-		}
-
+		$( this.element )[ result ? "removeClass" : "addClass" ]( "invalid" );
 		return result;
 	};
+
 
 	Validator.prototype.hasValue = function() {
 		var $t = $( this.element ),
@@ -136,10 +56,19 @@
 
 	Validator.prototype._isValid = function( value ) {
 		var result = false,
-			hasValue = this.hasValue();
+			hasValue = this.hasValue(),
+			method = this[ 'validate' + this.type ];
 
 		if( hasValue ) {
-			result = this.type ? this[ 'validate' + this.type ]( value ) : true;
+			if( !this.type ){
+				result = true;
+			}
+			else if( this.type && method ){
+				result = method( value ); 
+			}
+			else {
+				result = new RegExp( this.type ).test( value );
+			}
 		} else {
 			result = !this.required;
 		}
