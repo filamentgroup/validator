@@ -1,4 +1,3 @@
-/*global validator:true*/
 (function() {
 	/*
 		======== A Handy Little QUnit Reference ========
@@ -21,6 +20,8 @@
 			throws(block, [expected], [message])
 	*/
 
-	
+  test( "Initial test", function(){
+    ok( true , "Tests run" );
+  });
 
 }(jQuery));

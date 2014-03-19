@@ -6,6 +6,7 @@
  */
 
 /* global Validator:true */
+/* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 
 	Validator.prototype._getCreditType = function( value ) {
@@ -45,7 +46,7 @@
 		return result;
 	};
 
-	Validator.prototype.messagecvv = function( number ){
+	Validator.prototype.messagecvv = function( ){
 		var copy = this.data.copy.validator,
 			cc = this._findCreditField(),
 			card = this._getCreditType( cc[ 0 ].value );
@@ -55,7 +56,6 @@
 
 	Validator.prototype.validatecredit = function( value ){
 		var number = value.replace( /\s/g , '').replace( /-/g, ''),
-			result = false,
 			card = this._getCreditType( number ),
 			cvv = card && this.data.copy.validator.cvv;
 
@@ -73,4 +73,4 @@
 		return card && copy.credit[ card.id ].message || copy.credit.message;
 	};
 
-}( this.Validator, this.jQuery, this ));
+}( Validator, jQuery, this ));

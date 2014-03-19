@@ -6,6 +6,7 @@
  */
 
 /* global Validator:true */
+/* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 
 	Validator.prototype.validatepasswordconfirm = function( val ){
@@ -23,4 +24,4 @@
 		return result;
 	};
 
-}( this.Validator, this.jQuery, this ));
+}( Validator, jQuery, this ));

@@ -6,6 +6,7 @@
  */
 
 /* global Validator:true */
+/* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 	Validator.prototype.validatephone = function( val ){
 		var validator = this.data.config.validator,
@@ -18,4 +19,4 @@
 		return result;
 	};
 
-}( this.Validator, this.jQuery, this ));
+}( Validator, jQuery, this ));

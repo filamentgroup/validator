@@ -6,6 +6,7 @@
  */
 
 /* global Validator:true */
+/* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 
 	Validator.prototype.validateccexpiration = function( value ){
@@ -19,4 +20,4 @@
 		return result;
 	};
 
-}( this.Validator, this.jQuery, this ));
+}( Validator, jQuery, this ));

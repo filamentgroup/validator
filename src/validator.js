@@ -77,6 +77,6 @@
 	};
 
 
-	(w.componentNamespace = w.componentNamespace || w.Validator = Validator;
+	w.Validator = Validator;
 
 }( jQuery, this.data, this ));

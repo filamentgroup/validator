@@ -6,6 +6,7 @@
  */
 
 /* global Validator:true */
+/* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 	Validator.prototype.validatezip = function( number ){
 		// TODO move the data.validator reference to parameter of the constructor
@@ -18,4 +19,4 @@
 
 		return result;
 	};
-}( this.Validator, this.jQuery, this ));
+}( Validator, jQuery, this ));

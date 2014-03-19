@@ -6,6 +6,7 @@
  */
 
 /* global Validator:true */
+/* global jQuery:true */
 (function( validator, $, window, undefined ) {
 
 	var pluginName = "validator",
@@ -22,4 +23,4 @@
 		$( initSelector, e.target )[ validator ]();
 	});
 
-}( this.Validator, jQuery, this ));
+}( Validator, jQuery, this ));
