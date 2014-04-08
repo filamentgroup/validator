@@ -10,10 +10,9 @@
 (function( Validator, $, window, undefined ) {
 
 	Validator.prototype.validateemail = function( address ){
-		var validator = this.data.config.validator,
-			result = false;
+		var result = false;
 
-		if ( new RegExp( validator.email.pattern ).test( address ) ) {
+		if ( new RegExp( this.config.email.pattern ).test( address ) ) {
 			result = address;
 		}
 

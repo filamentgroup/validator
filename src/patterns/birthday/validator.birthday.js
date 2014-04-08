@@ -10,10 +10,9 @@
 (function( Validator, $, window, undefined ) {
 
 	Validator.prototype.validatebirthday = function( val ){
-		var validator = this.data.config.validator,
-			result = false;
+		var result = false;
 
-		if ( new RegExp( validator.birthday.pattern ).test( val ) ) {
+		if ( new RegExp( this.config.birthday.pattern ).test( val ) ) {
 			result = val;
 		}
 

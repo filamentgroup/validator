@@ -10,10 +10,9 @@
 (function( Validator, $, window, undefined ) {
 
 	Validator.prototype.validateccexpiration = function( value ){
-		var validator = this.data.config.validator,
-			result = false;
+		var result = false;
 
-		if ( new RegExp( validator.ccexpiration.pattern ).test( value ) ) {
+		if ( new RegExp( this.config.ccexpiration.pattern ).test( value ) ) {
 			result = true;
 		}
 

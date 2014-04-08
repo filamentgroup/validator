@@ -15,7 +15,7 @@
 				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 			// Task configuration.
 			clean: {
-				files: ['dist']
+				files: []
 			},
 			concat: {
 				options: {
@@ -23,7 +23,28 @@
 					stripBanners: true
 				},
 				dist: {
-					src: ['src/<%= pkg.name %>.js'],
+					src: [
+						'src/validator.js',
+						'src/patterns/birthday/validator.birthday.config.js',
+						'src/patterns/birthday/validator.birthday.copy.js',
+						'src/patterns/birthday/validator.birthday.js',
+						'src/patterns/ccexpiration/validator.ccexpiration.config.js',
+						'src/patterns/ccexpiration/validator.ccexpiration.copy.js',
+						'src/patterns/ccexpiration/validator.ccexpiration.js',
+						'src/patterns/credit/validator.credit.config.js',
+						'src/patterns/credit/validator.credit.copy.js',
+						'src/patterns/credit/validator.credit.js',
+						'src/patterns/email/validator.email.config.js',
+						'src/patterns/email/validator.email.copy.js',
+						'src/patterns/email/validator.email.js',
+						'src/patterns/numeric/validator.numeric.config.js',
+						'src/patterns/numeric/validator.numeric.copy.js',
+						'src/patterns/numeric/validator.numeric.js',
+						// 'src/patterns/password/validator.password.config.js',
+						// 'src/patterns/password/validator.password.copy.js',
+						// 'src/patterns/password/validator.password.js',
+						'src/validator.init.js'
+					],
 					dest: 'dist/<%= pkg.name %>.js'
 				}
 			},
@@ -84,7 +105,7 @@
 		grunt.loadNpmTasks('grunt-contrib-watch');
 
 		// Default task.
-		grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
+		grunt.registerTask('default', [ 'jshint', 'concat', 'uglify', 'qunit', 'clean' ]);
 
 	};
 })();

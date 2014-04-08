@@ -9,10 +9,9 @@
 /* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 	Validator.prototype.validatephone = function( val ){
-		var validator = this.data.config.validator,
-			result = false;
+		var result = false;
 
-		if ( new RegExp( validator.phone.pattern ).test( val ) ) {
+		if ( new RegExp( this.config.phone.pattern ).test( val ) ) {
 			result = val;
 		}
 

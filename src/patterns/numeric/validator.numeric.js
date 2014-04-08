@@ -9,12 +9,11 @@
 /* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 
-	Validator.prototype.validatenumeric = function( address ){
-		var validator = this.data.config.validator,
-			result = false;
+	Validator.prototype.validatenumeric = function( value ){
+		var result = false;
 
-		if ( new RegExp( validator.numeric.pattern ).test( address ) ) {
-			result = address;
+		if ( new RegExp( this.config.numeric.pattern ).test( value ) ) {
+			result = true;
 		}
 
 		return result;

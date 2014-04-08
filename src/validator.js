@@ -4,7 +4,7 @@
  * Copyright (c) 2013 Filament Group, Inc.
  * Licensed under MIT
  */
-(function( $, data, w ){
+(function( $, w ){
 	"use strict";
 
 	var Validator = function( element, opts ){
@@ -14,34 +14,35 @@
 		opts = opts || {};
 		opts.validatorClass = opts.validatorClass || "invalid";
 		opts.applyElement = opts.applyElement && opts.applyElement.length ? opts.applyElement : element;
-		opts.data = opts.data || data;
 
 		this.opts = opts;
 		this.element = element;
-		this.data = opts.data;
+		this.$element = $( element );
 
-		var $element = $( this.element );
-		this.type = $element.attr( "data-validate" );
-		this.required = $element.attr( "required" ) !== null;
+		this.type = this.$element.attr( "data-validate" );
+		this.required = this.$element.attr( "required" ) !== null;
 	};
+
+	Validator.prototype.config = {};
+
+	Validator.prototype.copy = {};
 
 	Validator.prototype.validate = function(){
 		var value = this.element.value,
 			result = this._isValid( value );
 
-		$( this.element )[ result ? "removeClass" : "addClass" ]( "invalid" );
+		this.$element[ result ? "removeClass" : "addClass" ]( "invalid" );
 		return result;
 	};
 
 
 	Validator.prototype.hasValue = function() {
-		var $t = $( this.element ),
-			type = $t.attr( 'type' ),
+		var type = this.$element.attr( 'type' ),
 			name,
 			count = 0;
 
 		if( type === 'radio' || type === 'checkbox' ) {
-			name = $t.attr( 'name' );
+			name = this.$element.attr( 'name' );
 			$( '[name="' + name + '"]' ).each(function() {
 				if( this.checked ) {
 					count++;
@@ -79,4 +80,4 @@
 
 	w.Validator = Validator;
 
-}( jQuery, this.data, this ));
+}( jQuery, this ));

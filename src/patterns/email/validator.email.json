@@ -1,3 +1,0 @@
-var email = {
-	"pattern" : "^\\S+@\\S+\\.\\S+$"
-};

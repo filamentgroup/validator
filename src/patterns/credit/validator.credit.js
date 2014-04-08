@@ -11,7 +11,7 @@
 
 	Validator.prototype._getCreditType = function( value ) {
 		var card,
-			cards = this.data.config.credit;
+			cards = this.config.credit;
 
 		for ( var i = 0; i < cards.length; i++ ) {
 			card = cards[ i ];
@@ -23,13 +23,13 @@
 	};
 
 	Validator.prototype._findCreditField = function() {
-		return $( this.element ).closest( "form" ).find( "[data-validate=credit]" );
+		return this.$element.closest( "form" ).find( "[data-validate=credit]" );
 	};
 
 	Validator.prototype._findCvvField = function() {
-		return $( this.element ).closest( "form" ).find( "[data-validate=cvv]" );
+		return this.$element.closest( "form" ).find( "[data-validate=cvv]" );
 	};
-	
+
 	Validator.prototype.validatecvv = function( number ){
 		if( isNaN( parseInt( number, 10 ) ) || parseInt( number, 10 ) < 0 ){
 			return;
@@ -47,17 +47,16 @@
 	};
 
 	Validator.prototype.messagecvv = function( ){
-		var copy = this.data.copy.validator,
-			cc = this._findCreditField(),
+		var cc = this._findCreditField(),
 			card = this._getCreditType( cc[ 0 ].value );
 
-		return card && copy.cvv[ card.id ].message || copy.cvv.message;
+		return card && this.copy.cvv[ card.id ].message || this.copy.cvv.message;
 	};
 
 	Validator.prototype.validatecredit = function( value ){
 		var number = value.replace( /\s/g , '').replace( /-/g, ''),
 			card = this._getCreditType( number ),
-			cvv = card && this.data.copy.validator.cvv;
+			cvv = card && this.copy.cvv;
 
 		if( card && cvv ) {
 			this._findCvvField().attr( 'placeholder', cvv[ card.id ].placeholder );
@@ -67,10 +66,9 @@
 	};
 
 	Validator.prototype.messagecredit = function( value ) {
-		var copy = this.data.copy.validator,
-			card = this._getCreditType( value );
+		var card = this._getCreditType( value );
 
-		return card && copy.credit[ card.id ].message || copy.credit.message;
+		return card && this.copy.credit[ card.id ].message || this.copy.credit.message;
 	};
 
 }( Validator, jQuery, this ));
