@@ -7,20 +7,42 @@
 
 /* global Validator:true */
 /* global jQuery:true */
-(function( validator, $, window, undefined ) {
+(function( $, window, undefined ) {
 
 	var pluginName = "validator",
-		initSelector = "[data-" + pluginName + "]";
+		dataKey = pluginName,
+		initSelector = "[required],[data-validate]";
 
 	$.fn[ pluginName ] = function(){
 		return this.each(function(){
-			new window.componentNamespace.Validator( this ).init();
+			var $el = $( this );
+
+			if( $el.data( dataKey ) ) {
+				return;
+			}
+
+			var validator = new Validator( this, {
+				applyElement: $el.closest( "label" )
+			});
+
+			$el.data( dataKey, validator );
+
+			$el.bind( "blur", function() {
+				validator.validate();
+			});
+
+			$el.closest( "form" ).bind( "submit", function( e ){
+				if( !validator.validate() ){
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			});
 		});
 	};
 
 	// auto-init on enhance (which is called on domready)
 	$( document ).bind( "enhance", function( e ){
-		$( initSelector, e.target )[ validator ]();
+		$( initSelector, e.target )[ pluginName ]();
 	});
 
-}( Validator, jQuery, this ));
+}( jQuery, this ));

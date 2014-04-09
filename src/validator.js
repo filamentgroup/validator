@@ -13,7 +13,7 @@
 		}
 		opts = opts || {};
 		opts.validatorClass = opts.validatorClass || "invalid";
-		opts.applyElement = opts.applyElement && opts.applyElement.length ? opts.applyElement : element;
+		opts.$applyElement = opts.applyElement && opts.applyElement.length ? opts.applyElement : element;
 
 		this.opts = opts;
 		this.element = element;
@@ -31,10 +31,9 @@
 		var value = this.element.value,
 			result = this._isValid( value );
 
-		this.$element[ result ? "removeClass" : "addClass" ]( "invalid" );
+		this.opts.$applyElement[ result ? "removeClass" : "addClass" ]( "invalid" );
 		return result;
 	};
-
 
 	Validator.prototype.hasValue = function() {
 		var type = this.$element.attr( 'type' ),
@@ -65,7 +64,7 @@
 				result = true;
 			}
 			else if( this.type && method ){
-				result = method( value );
+				result = method.call( this, value );
 			}
 			else {
 				result = new RegExp( this.type ).test( value );

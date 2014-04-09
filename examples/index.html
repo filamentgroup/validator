@@ -8,20 +8,33 @@
 			body {
 				font-family: sans-serif;
 			}
-			
+			label {
+				display: block;
+			}
 		</style>
 		<link rel="stylesheet" href="../src/validator.css" />
 	</head>
 	<body>
 
-		<!-- markup here -->
-		
+		<form novalidate>
+			<label>Required: <input type="text" required></label>
+			<label>Required: <input type="checkbox" required name="my-checkbox"></label>
+			<label>Required: <input type="radio" required name="my-radio"></label>
+			<label>Credit Card Number: <input type="text" data-validate="credit" placeholder="XXXX XXXX XXXX XXXX"></label>
+			<label>CVV Number: <input type="text" data-validate="cvv"></label>
+			<label>Birthday: <input type="text" data-validate="birthday" placeholder="MM DD"></label>
+			<label>Credit Card Expiration: <input type="text" data-validate="ccexpiration" placeholder="YYYY MM"></label>
+			<label>Email: <input type="text" data-validate="email"></label>
+			<label>Numeric: <input type="text" data-validate="numeric"></label>
+			<label>Password: <input type="password" data-validate="password"></label>
+			<label>Confirm Password: <input type="password" data-validate="passwordconfirm"></label>
+			<label>Zip Code: <input type="text" data-validate="zip" placeholder="XXXXX"></label>
+			<label>Phone Number: <input type="text" data-validate="phone" placeholder="XXX XXX XXXX"></label>
+			<button>Submit</button>
+		</form>
 
-		<!-- normally you would concatenate these -->
 		<script src="../libs/jquery/jquery.js"></script>
-		<script src="../src/validator.config.json"></script>
-		<script src="../src/validator.js"></script>
-		<script src="../src/validator-init.js"></script>
+		<script src="../dist/validator.js"></script>
 		<script src="init.js"></script>
 	</body>
 </html>

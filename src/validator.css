@@ -1,4 +1,11 @@
 /* validator component */
-[data-validator] {
-	
+[required],
+[data-validate] {
+}
+.invalid {
+  color: red;
+}
+.invalid [required],
+.invalid [data-validate] {
+  border-color: red;
 }

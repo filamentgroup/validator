@@ -22,7 +22,7 @@
 					banner: '<%= banner %>',
 					stripBanners: true
 				},
-				dist: {
+				js: {
 					src: (function() {
 						var files = [],
 							// Add new validators here:
@@ -50,6 +50,10 @@
 						return files;
 					}()),
 					dest: 'dist/<%= pkg.name %>.js'
+				},
+				css: {
+					src: ['src/validator.css'],
+					dest: 'dist/<%= pkg.name %>.css'
 				}
 			},
 			uglify: {
@@ -57,7 +61,7 @@
 					banner: '<%= banner %>'
 				},
 				dist: {
-					src: ['<%= concat.dist.src %>'],
+					src: ['<%= concat.js.src %>'],
 					dest: 'dist/<%= pkg.name %>.min.js'
 				}
 			},
