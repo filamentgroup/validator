@@ -8,10 +8,10 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.copy, {
-    "ccexpiration": {
-      "placeholder": "YYYY MM"
-    }
-  });
+	$.extend( Validator.prototype.copy, {
+		"ccexpiration": {
+			"placeholder": "YYYY MM"
+		}
+	});
 
 }( Validator, jQuery ));

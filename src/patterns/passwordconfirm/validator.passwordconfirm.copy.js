@@ -9,7 +9,9 @@
 /* global jQuery:true */
 (function( Validator, $ ) {
   $.extend( Validator.prototype.copy, {
-    
+    "passwordconfirm" : {
+      "message" : "Passwords must match."
+    }
   });
 
 }( Validator, jQuery ));

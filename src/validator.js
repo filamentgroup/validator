@@ -65,7 +65,7 @@
 				result = true;
 			}
 			else if( this.type && method ){
-				result = method( value ); 
+				result = method( value );
 			}
 			else {
 				result = new RegExp( this.type ).test( value );

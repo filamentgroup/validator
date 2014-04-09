@@ -6,7 +6,7 @@
 	var doc = w.document;
 	var Validator = w.Validator;
 
-	module( "constructor", {
+	module( "Constructor", {
 		setup: function() {
 			this.validator = new Validator( doc.querySelector( "[data-validate=credit]" ) );
 		},
@@ -15,11 +15,11 @@
 		}
 	});
 
-	test( "type", function() {
+	test( "Type", function() {
 		equal( this.validator.type, "credit" );
 	});
 
-	test( "element", function() {
+	test( "Element", function() {
 		equal( this.validator.$element.attr( 'data-validate' ), "credit");
 	});
 
@@ -34,7 +34,7 @@
 		}
 	});
 
-	test( "credit", function(){
+	test( "Credit", function(){
 		ok( this.credit.validatecredit( "5444 0000 0000 0000" ) );
 		ok( this.credit.validatecredit( "5444000000000000" ) );
 		ok( this.credit.validatecredit( "5444-0000-0000-0000" ) );
@@ -104,21 +104,78 @@
 		ok( !this.ccExpiration.validateccexpiration( "2014055" ) );
 	});
 
+	module( "Passwords", {
+		setup: function() {
+			this.validatorPW = new Validator( doc.querySelector( "[data-validate=password]" ) );
+			this.validatorPWConf = new Validator( doc.querySelector( "[data-validate=passwordconfirm]" ) );
+		},
+		teardown: function() {
+			this.validatorPW = null;
+			this.validatorPWConf = null;
+		}
+	});
+
+	test( "invalid password no num no uppercase", function(){
+		var pw = "validator";
+		ok( !this.validatorPW.validatepassword( pw ) );
+	});
+
+	test( "invalid password no lowercase", function(){
+		var pw = "VALIDATOR2";
+		ok( !this.validatorPW.validatepassword( pw ) );
+	});
+
+	test( "invalid password no num", function(){
+		var pw = "Validator";
+		ok( !this.validatorPW.validatepassword( pw ) );
+	});
+
+	test( "invalid password too short", function(){
+		var pw = "Vali1";
+		ok( !this.validatorPW.validatepassword( pw ) );
+	});
+
+	test( "invalid password too long", function(){
+		var pw = "Vali1dator4th0nS";
+		ok( !this.validatorPW.validatepassword( pw ) );
+	});
+
+	test( "valid password confirm no match", function(){
+		var pw = "Vali1dator";
+		ok( this.validatorPW.validatepassword( pw ), "This is a valid password" );
+		[ this.validatorPW.element ].forEach( function( el ){
+			el.value = pw;
+		});
+
+		this.validatorPWConf.element.value = "foo";
+
+		ok( this.validatorPWConf.validatepasswordconfirm( pw ), "The passwords should match" );
+	});
+
+	test( "valid password confirm", function(){
+		var pw = "Vali1dator";
+		ok( this.validatorPW.validatepassword( pw ), "This is a valid password" );
+		[this.validatorPW.element, this.validatorPWConf.element ].forEach( function( el ){
+			el.value = pw;
+		});
+
+		ok( this.validatorPWConf.validatepasswordconfirm( pw ), "The passwords should match" );
+	});
+
 	module( "Other", {
 		setup: function() {
-			// this.validatorZip = new Validator( doc.querySelector( "[data-validate=zip]" ) );
-			// this.validatorPW = new Validator( doc.querySelector( "[data-validate=password]" ) );
-			// this.validatorPWConf = new Validator( doc.querySelector( "[data-validate=passwordconfirm]" ) );
-			// this.validatorphone = new Validator( doc.querySelector( "[data-validate=phone]" ) );
 			this.validatorEmail = new Validator( doc.querySelector( "[data-validate=email]" ) );
 			this.validatorNumeric = new Validator( doc.querySelector( "[data-validate=numeric]" ) );
+			this.validatorZip = new Validator( doc.querySelector( "[data-validate=zip]" ) );
+			this.validatorPhone = new Validator( doc.querySelector( "[data-validate=phone]" ) );
 		},
 		teardown: function() {
 			this.validatorEmail = null;
 			this.validatorNumeric = null;
+			this.validatorZip = null;
+			this.validatorPhone = null;
 		}
 	});
-
 
 	test( "email", function(){
 		ok( this.validatorEmail.validateemail( "foo@bar.com" ) );
@@ -133,4 +190,22 @@
 		ok( this.validatorNumeric.validatenumeric( "4" ) );
 		ok( !this.validatorNumeric.validatenumeric( "dddddd" ) );
 	});
+
+	test( "phone", function(){
+		ok( this.validatorPhone.validatephone( "4021111111" ) );
+		ok( this.validatorPhone.validatephone( "402 1111111" ) );
+		ok( this.validatorPhone.validatephone( "402111 1111" ) );
+		ok( this.validatorPhone.validatephone( "402 111 1111" ) );
+		ok( this.validatorPhone.validatephone( "402-111-1111" ) );
+		ok( this.validatorPhone.validatephone( "(402) 111-1111" ) );
+		ok( !this.validatorPhone.validatephone( "402123456789" ) );
+		ok( !this.validatorPhone.validatephone( "402 123 456789" ) );
+	});
+
+	test( "zipcode", function(){
+		ok( this.validatorZip.validatezip( "98109" ), "Zip code of 5 digits should work" );
+		ok( this.validatorZip.validatezip( "98109-5555" ), "Zip code of 5 digits-4 digits should work" );
+		ok( !this.validatorZip.validatezip( "98a109-5555" ), "Zip code is invalid" );
+	});
+
 })( window );

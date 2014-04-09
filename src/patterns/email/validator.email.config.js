@@ -8,10 +8,10 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.config, {
-    "email" : {
-      "pattern" : "^\\S+@\\S+\\.\\S+$"
-    }
-  });
+	$.extend( Validator.prototype.config, {
+		"email" : {
+			"pattern" : "^\\S+@\\S+\\.\\S+$"
+		}
+	});
 
 }( Validator, jQuery ));

@@ -8,8 +8,10 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.config, {
-    
-  });
+	$.extend( Validator.prototype.config, {
+		"zip" : {
+			"pattern" : "^\\d{5}(-\\d{4})?$"
+		}
+	});
 
 }( Validator, jQuery ));

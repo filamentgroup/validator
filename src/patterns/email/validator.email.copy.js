@@ -8,10 +8,10 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.copy, {
-    "email" : {
-      "message" : "Incorrect e-mail format."
-    }
-  });
+	$.extend( Validator.prototype.copy, {
+		"email" : {
+			"message" : "Incorrect e-mail format."
+		}
+	});
 
 }( Validator, jQuery ));

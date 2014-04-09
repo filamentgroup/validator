@@ -8,11 +8,11 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.copy, {
-    "birthday": {
-      "placeholder": "MM DD",
-      "message" : "Birthday should be a two digit month and two digit day."
-    }
-  });
+	$.extend( Validator.prototype.copy, {
+		"birthday": {
+			"placeholder": "MM DD",
+			"message" : "Birthday should be a two digit month and two digit day."
+		}
+	});
 
 }( Validator, jQuery ));

@@ -23,28 +23,32 @@
 					stripBanners: true
 				},
 				dist: {
-					src: [
-						'src/validator.js',
-						'src/patterns/birthday/validator.birthday.config.js',
-						'src/patterns/birthday/validator.birthday.copy.js',
-						'src/patterns/birthday/validator.birthday.js',
-						'src/patterns/ccexpiration/validator.ccexpiration.config.js',
-						'src/patterns/ccexpiration/validator.ccexpiration.copy.js',
-						'src/patterns/ccexpiration/validator.ccexpiration.js',
-						'src/patterns/credit/validator.credit.config.js',
-						'src/patterns/credit/validator.credit.copy.js',
-						'src/patterns/credit/validator.credit.js',
-						'src/patterns/email/validator.email.config.js',
-						'src/patterns/email/validator.email.copy.js',
-						'src/patterns/email/validator.email.js',
-						'src/patterns/numeric/validator.numeric.config.js',
-						'src/patterns/numeric/validator.numeric.copy.js',
-						'src/patterns/numeric/validator.numeric.js',
-						// 'src/patterns/password/validator.password.config.js',
-						// 'src/patterns/password/validator.password.copy.js',
-						// 'src/patterns/password/validator.password.js',
-						'src/validator.init.js'
-					],
+					src: (function() {
+						var files = [],
+							// Add new validators here:
+							// Files: src/patterns/KEY/validator.KEY.[config.js,copy.js,.js]
+							validators = [
+								'birthday',
+								'ccexpiration',
+								'credit',
+								'email',
+								'numeric',
+								'password',
+								'passwordconfirm',
+								'phone',
+								'zip'
+							];
+
+						validators.forEach(function( validator ) {
+							var prefix = 'src/patterns/' + validator + '/validator.' + validator;
+							files.push( prefix + '.config.js', prefix + '.copy.js', prefix + '.js' );
+						});
+
+						files.unshift( 'src/validator.js' );
+						files.push( 'src/validator.init.js' );
+
+						return files;
+					}()),
 					dest: 'dist/<%= pkg.name %>.js'
 				}
 			},

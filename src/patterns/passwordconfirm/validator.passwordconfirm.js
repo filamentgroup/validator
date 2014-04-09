@@ -10,7 +10,7 @@
 (function( Validator, $, window, undefined ) {
 
 	Validator.prototype.validatepasswordconfirm = function( val ){
-		var passwords = $( this.element ).closest( "form" ).find( "[data-validate=password]" ),
+		var passwords = this.$element.closest( "form" ).find( "[data-validate=password]" ),
 			result = false,
 			pw;
 

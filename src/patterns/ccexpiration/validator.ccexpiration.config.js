@@ -8,10 +8,10 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.config, {
-    "ccexpiration" : {
-      "pattern" : "^[0-9]{4}[ -\\/\\.]?[0-9]{2}$"
-    }
-  });
+	$.extend( Validator.prototype.config, {
+		"ccexpiration" : {
+			"pattern" : "^[0-9]{4}[ -\\/\\.]?[0-9]{2}$"
+		}
+	});
 
 }( Validator, jQuery ));

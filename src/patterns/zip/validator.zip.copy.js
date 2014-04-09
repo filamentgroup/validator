@@ -8,8 +8,11 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.copy, {
-    
-  });
+	$.extend( Validator.prototype.copy, {
+		"zip" : {
+			"placeholder": "00000",
+			"message" : "ZIP Code should be 5 digits."
+		}
+	});
 
 }( Validator, jQuery ));

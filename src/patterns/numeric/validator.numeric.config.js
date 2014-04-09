@@ -8,10 +8,10 @@
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
-  $.extend( Validator.prototype.config, {
-    "numeric": {
-      "pattern": "[0-9]*"
-    }
-  });
+	$.extend( Validator.prototype.config, {
+		"numeric": {
+			"pattern": "[0-9]+"
+		}
+	});
 
 }( Validator, jQuery ));
