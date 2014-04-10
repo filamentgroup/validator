@@ -1,14 +1,14 @@
 /*global module:true*/
 /*global test:true*/
 /*global equal:true*/
-(function( w ) {
+/*global jQuery:true*/
+(function( w, $ ) {
 	"use strict";
-	var doc = w.document;
-	var Validator = w.Validator;
 
 	module( "Constructor", {
 		setup: function() {
-			this.validator = new Validator( doc.querySelector( "[data-validate=credit]" ) );
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.validator = $( "[data-validate=credit]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validator = null;
@@ -23,10 +23,37 @@
 		equal( this.validator.$element.attr( 'data-validate' ), "credit");
 	});
 
+	module( "Validation", {
+		setup: function() {
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.validatorPhone = $( "[data-validate=phone]" ).data( "validator" );
+			this.validatorZip = $( "[data-validate=zip]" ).data( "validator" );
+		},
+		teardown: function() {
+			this.validatorPhone = null;
+			this.validatorZip = null;
+		}
+	});
+
+	test( "Required should show error", function() {
+		ok( this.validatorPhone.$element.is( "[required]" ), "Element is required." );
+		this.validatorPhone.element.value = "";
+		this.validatorPhone.$element.trigger( "blur" );
+		ok( this.validatorPhone.$element.is( ".invalid" ), "Has invalid class." );
+	});
+
+	test( "Not required should not show error", function() {
+		ok( !this.validatorZip.$element.is( "[required]" ), "Element is not required." );
+		this.validatorZip.element.value = "";
+		this.validatorZip.$element.trigger( "blur" );
+		ok( !this.validatorZip.$element.is( ".invalid" ), "Does not have the invalid class." );
+	});
+
 	module( "Payment", {
 		setup: function() {
-			this.credit = new Validator( doc.querySelector( "[data-validate=credit]" ) );
-			this.cvv = new Validator( doc.querySelector( "[data-validate=cvv]" ) );
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.credit = $( "[data-validate=credit]" ).data( "validator" );
+			this.cvv = $( "[data-validate=cvv]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.credit = null;
@@ -62,8 +89,9 @@
 
 	module( "Dates", {
 		setup: function() {
-			this.validator = new Validator( doc.querySelector( "[data-validate=birthday]" ) );
-			this.ccExpiration = new Validator( doc.querySelector( "[data-validate=ccexpiration]" ) );
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.validator = $( "[data-validate=birthday]" ).data( "validator" );
+			this.ccExpiration = $( "[data-validate=ccexpiration]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validator = null;
@@ -106,8 +134,9 @@
 
 	module( "Passwords", {
 		setup: function() {
-			this.validatorPW = new Validator( doc.querySelector( "[data-validate=password]" ) );
-			this.validatorPWConf = new Validator( doc.querySelector( "[data-validate=passwordconfirm]" ) );
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.validatorPW = $( "[data-validate=password]" ).data( "validator" );
+			this.validatorPWConf = $( "[data-validate=passwordconfirm]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validatorPW = null;
@@ -164,10 +193,11 @@
 
 	module( "Other", {
 		setup: function() {
-			this.validatorEmail = new Validator( doc.querySelector( "[data-validate=email]" ) );
-			this.validatorNumeric = new Validator( doc.querySelector( "[data-validate=numeric]" ) );
-			this.validatorZip = new Validator( doc.querySelector( "[data-validate=zip]" ) );
-			this.validatorPhone = new Validator( doc.querySelector( "[data-validate=phone]" ) );
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.validatorEmail = $( "[data-validate=email]" ).data( "validator" );
+			this.validatorNumeric = $( "[data-validate=numeric]" ).data( "validator" );
+			this.validatorZip = $( "[data-validate=zip]" ).data( "validator" );
+			this.validatorPhone = $( "[data-validate=phone]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validatorEmail = null;
@@ -208,4 +238,4 @@
 		ok( !this.validatorZip.validatezip( "98a109-5555" ), "Zip code is invalid" );
 	});
 
-})( window );
+})( window, jQuery );

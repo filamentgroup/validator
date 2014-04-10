@@ -13,14 +13,14 @@
 		}
 		opts = opts || {};
 		opts.validatorClass = opts.validatorClass || "invalid";
-		opts.$applyElement = opts.applyElement && opts.applyElement.length ? opts.applyElement : element;
+		opts.$applyElement = $( opts.applyElement && opts.applyElement.length ? opts.applyElement : element );
 
 		this.opts = opts;
 		this.element = element;
 		this.$element = $( element );
 
 		this.type = this.$element.attr( "data-validate" );
-		this.required = this.$element.attr( "required" ) !== null;
+		this.required = this.$element.is( "[required]" );
 	};
 
 	Validator.prototype.config = {};
@@ -62,12 +62,8 @@
 		if( hasValue ) {
 			if( !this.type ){
 				result = true;
-			}
-			else if( this.type && method ){
+			} else if( this.type && method ){
 				result = method.call( this, value );
-			}
-			else {
-				result = new RegExp( this.type ).test( value );
 			}
 		} else {
 			result = !this.required;
