@@ -3,16 +3,15 @@
 Description
 
 ## Getting Started
-Download the [production version][min] or the [development version][max].
+Download the [development version][max].
 
-[min]: https://raw.github.com/filamentgroup/validator/master/dist/validator.min.js
 [max]: https://raw.github.com/filamentgroup/validator/master/dist/validator.js
 
 In your web page:
 
 ```html
 <script src="jquery.js"></script>
-<script src="dist/validator.min.js"></script>
+<script src="dist/validator.js"></script>
 <script>
 jQuery(function($) {
 	$( document ).bind( "enhance", function(){
@@ -25,7 +24,10 @@ jQuery(function($) {
 ```
 
 ## Demo
-Check the demo [here](http://filamentgroup.github.io/validator/)
+Check the [demo](http://filamentgroup.github.io/validator/examples/)
+
+## Tests
+Run the [tests](http://filamentgroup.github.io/validator/test/)
 
 ## Release History
 v0.1.0 - First release

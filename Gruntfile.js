@@ -57,15 +57,6 @@
 					dest: 'dist/<%= pkg.name %>.css'
 				}
 			},
-			uglify: {
-				options: {
-					banner: '<%= banner %>'
-				},
-				dist: {
-					src: ['<%= concat.js.src %>'],
-					dest: 'dist/<%= pkg.name %>.min.js'
-				}
-			},
 			qunit: {
 				files: ['test/**/*.html']
 			},
@@ -102,19 +93,25 @@
 					files: '<%= jshint.test.src %>',
 					tasks: ['jshint:test', 'qunit']
 				}
+			},
+			bytesize: {
+				dist: {
+					src: [
+						'dist/<%= pkg.name %>.css',
+						'dist/<%= pkg.name %>.js'
+					]
+				}
+			},
+			'gh-pages': {
+				options: {},
+				src: ['dist/**/*', 'libs/**/*', 'examples/**/*', 'test/**/*']
 			}
 		});
 
-		// These plugins provide necessary tasks.
-		grunt.loadNpmTasks('grunt-contrib-clean');
-		grunt.loadNpmTasks('grunt-contrib-concat');
-		grunt.loadNpmTasks('grunt-contrib-uglify');
-		grunt.loadNpmTasks('grunt-contrib-qunit');
-		grunt.loadNpmTasks('grunt-contrib-jshint');
-		grunt.loadNpmTasks('grunt-contrib-watch');
+		require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-		// Default task.
-		grunt.registerTask('default', [ 'jshint', 'concat', 'uglify', 'qunit', 'clean' ]);
+		grunt.registerTask('default', [ 'jshint', 'concat', 'qunit', 'clean', 'bytesize' ]);
+		grunt.registerTask('deploy', [ 'default', 'gh-pages' ]);
 
 	};
 })();
