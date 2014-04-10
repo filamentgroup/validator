@@ -5,7 +5,7 @@ Description
 ## Getting Started
 Download the [development version][max].
 
-[max]: https://raw.github.com/filamentgroup/validator/master/dist/validator.js
+[max]: https://github.com/filamentgroup/validator/blob/gh-pages/dist/validator.js
 
 In your web page:
 
