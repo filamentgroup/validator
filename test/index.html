@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Test Suite</title>
+	<script src="../libs/jquery/jquery.js"></script>
+	<!-- Load local QUnit. -->
+	<link rel="stylesheet" href="../libs/qunit/qunit.css" media="screen">
+	<script src="../libs/qunit/qunit.js"></script>
+	<!-- Load local lib and tests. -->
+	<script src="../dist/validator.js"></script>
+	<script src="test.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture">
+		<form>
+			<input type="text" required>
+			<input type="text" data-validate="credit">
+			<input type="text" data-validate="cvv">
+			<input type="text" data-validate="birthday">
+			<input type="text" data-validate="ccexpiration">
+			<input type="text" data-validate="email">
+			<input type="text" data-validate="numeric">
+			<input type="password" data-validate="password">
+			<input type="password" data-validate="passwordconfirm">
+			<input type="text" data-validate="zip">
+			<input type="text" required data-validate="phone">
+		</form>
+	</div>
+	</div>
+</body>
+</html>
