@@ -39,5 +39,12 @@
 		<script src="../libs/jquery/jquery.js"></script>
 		<script src="../dist/validator.js"></script>
 		<script src="init.js"></script>
+		<script>
+		$(function() {
+			$( "form" ).bind( "error.validator", function() {
+				alert( "Submit failed." );
+			});
+		})
+		</script>
 	</body>
 </html>

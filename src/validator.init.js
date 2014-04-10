@@ -11,6 +11,7 @@
 
 	var pluginName = "validator",
 		dataKey = pluginName,
+		formSubmitErrorEventName = 'error.validator',
 		initSelector = "[required],[data-validate]";
 
 	$.fn[ pluginName ] = function(){
@@ -33,8 +34,10 @@
 
 			$el.closest( "form" ).bind( "submit", function( e ){
 				if( !validator.validate() ){
+					if( !e.isDefaultPrevented() ) {
+						$( this ).trigger( formSubmitErrorEventName );
+					}
 					e.preventDefault();
-					e.stopPropagation();
 				}
 			});
 		});
