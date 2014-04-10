@@ -32,6 +32,7 @@
 								'ccexpiration',
 								'credit',
 								'email',
+								'minlength',
 								'numeric',
 								'password',
 								'passwordconfirm',

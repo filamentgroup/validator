@@ -212,12 +212,14 @@
 			this.validatorNumeric = $( "[data-validate=numeric]" ).data( "validator" );
 			this.validatorZip = $( "[data-validate=zip]" ).data( "validator" );
 			this.validatorPhone = $( "[data-validate=phone]" ).data( "validator" );
+			this.validatorMinlength = $( "[data-validate=minlength]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validatorEmail = null;
 			this.validatorNumeric = null;
 			this.validatorZip = null;
 			this.validatorPhone = null;
+			this.validatorMinlength = null;
 		}
 	});
 
@@ -250,6 +252,11 @@
 		ok( this.validatorZip.validatezip( "98109" ), "Zip code of 5 digits should work" );
 		ok( this.validatorZip.validatezip( "98109-5555" ), "Zip code of 5 digits-4 digits should work" );
 		ok( !this.validatorZip.validatezip( "98a109-5555" ), "Zip code is invalid" );
+	});
+
+	test( "minlength", function(){
+		ok( !this.validatorMinlength.validateminlength( "22" ), "Should fail, requires 3 characters" );
+		ok( this.validatorMinlength.validateminlength( "2244" ), "Should pass, requires 3 characters" );
 	});
 
 })( window, jQuery );

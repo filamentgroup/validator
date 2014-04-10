@@ -87,8 +87,14 @@
 	};
 
 	Validator.prototype.getErrorMessage = function( value ) {
-		var type = value && this.type || ( this.required ? 'required' : '' );
-		return this[ 'message' + this.type ] ? this[ 'message' + this.type ]( value ) : this.copy[ type ].message;
+		if( !value ) {
+			return this.$element.attr( 'data-required-message' ) || this.copy.required.message;
+		}
+		var msg = this.$element.attr( 'data-' + this.type + '-message' ) || this.copy[ this.type ].message;
+
+		return this[ 'message' + this.type ] ?
+			this[ 'message' + this.type ].call( this, value, msg ) :
+			msg;
 	};
 
 	w.Validator = Validator;
