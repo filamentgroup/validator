@@ -9,7 +9,7 @@
 .invalid [data-validate] {
   border-color: red;
 }
-.invalid + .error-msg {
+.error-msg {
   font-style: italic;
   font-size: .8125em;
 }

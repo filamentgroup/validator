@@ -81,9 +81,9 @@
 
 	Validator.prototype.getErrorMessageElement = function() {
 		var $el = this.opts.$applyElement,
-			$next = $el.next( '.error-msg' );
+			$prev = $el.prev( '.error-msg' );
 
-		return $next.length ? $next : $( '<div>' ).addClass( 'error-msg' ).insertAfter( $el );
+		return $prev.length ? $prev : $( '<div>' ).addClass( 'error-msg' ).insertBefore( $el );
 	};
 
 	Validator.prototype.getErrorMessage = function( value ) {
