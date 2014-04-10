@@ -36,6 +36,7 @@
 								'password',
 								'passwordconfirm',
 								'phone',
+								'required',
 								'zip'
 							];
 

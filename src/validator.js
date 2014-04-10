@@ -28,14 +28,22 @@
 	Validator.prototype.copy = {};
 
 	Validator.prototype.validate = function(){
-		var value = this.element.value,
-			result = this._isValid( value );
+		var value = this.getValue(),
+			result = this._isValid( value ),
+			$error;
 
 		this.opts.$applyElement[ result ? "removeClass" : "addClass" ]( "invalid" );
+
+		$error = this.getErrorMessageElement();
+		if( !result ) {
+			$error.html( this.getErrorMessage( value ) );
+		} else {
+			$error.remove();
+		}
 		return result;
 	};
 
-	Validator.prototype.hasValue = function() {
+	Validator.prototype.getValue = function() {
 		var type = this.$element.attr( 'type' ),
 			name,
 			count = 0;
@@ -48,18 +56,17 @@
 				}
 			});
 
-			return count > 0;
-		} else {
-			return !!this.element.value;
+			return count;
 		}
+
+		return this.element.value;
 	};
 
 	Validator.prototype._isValid = function( value ) {
 		var result = false,
-			hasValue = this.hasValue(),
 			method = this[ 'validate' + this.type ];
 
-		if( hasValue ) {
+		if( value ) {
 			if( !this.type ){
 				result = true;
 			} else if( this.type && method ){
@@ -72,6 +79,17 @@
 		return result;
 	};
 
+	Validator.prototype.getErrorMessageElement = function() {
+		var $el = this.opts.$applyElement,
+			$next = $el.next( '.error-msg' );
+
+		return $next.length ? $next : $( '<div>' ).addClass( 'error-msg' ).insertAfter( $el );
+	};
+
+	Validator.prototype.getErrorMessage = function( value ) {
+		var type = value && this.type || ( this.required ? 'required' : '' );
+		return this[ 'message' + this.type ] ? this[ 'message' + this.type ]( value ) : this.copy[ type ].message;
+	};
 
 	w.Validator = Validator;
 

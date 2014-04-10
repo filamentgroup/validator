@@ -46,7 +46,7 @@
 		return result;
 	};
 
-	Validator.prototype.messagecvv = function( ){
+	Validator.prototype.messagecvv = function(){
 		var cc = this._findCreditField(),
 			card = this._getCreditType( cc[ 0 ].value );
 

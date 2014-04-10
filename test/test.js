@@ -23,7 +23,7 @@
 		equal( this.validator.$element.attr( 'data-validate' ), "credit");
 	});
 
-	module( "Validation", {
+	module( "Events", {
 		setup: function() {
 			$( "#qunit-fixture" ).trigger( "enhance" );
 			this.validatorPhone = $( "[data-validate=phone]" ).data( "validator" );
@@ -40,6 +40,12 @@
 		this.validatorPhone.element.value = "";
 		this.validatorPhone.$element.trigger( "blur" );
 		ok( this.validatorPhone.$element.is( ".invalid" ), "Has invalid class." );
+		ok( this.validatorPhone.$element.next( '.error-msg' ).length, "Error message is shown." );
+
+		this.validatorPhone.element.value = "402 111 1111";
+		this.validatorPhone.$element.trigger( "blur" );
+		ok( !this.validatorPhone.$element.is( ".invalid" ), "Invalid class removed after value added." );
+		ok( !this.validatorPhone.$element.next( '.error-msg' ).length, "Error message was removed." );
 	});
 
 	test( "Not required should not show error", function() {
