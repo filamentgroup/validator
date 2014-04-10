@@ -42,7 +42,7 @@
 		ok( this.validatorPhone.$element.is( ".invalid" ), "Has invalid class." );
 		ok( this.validatorPhone.$element.next( '.error-msg' ).length, "Error message is shown." );
 
-		this.validatorPhone.element.value = "402 111 1111";
+		this.validatorPhone.element.value = "617 482 7120";
 		this.validatorPhone.$element.trigger( "blur" );
 		ok( !this.validatorPhone.$element.is( ".invalid" ), "Invalid class removed after value added." );
 		ok( !this.validatorPhone.$element.next( '.error-msg' ).length, "Error message was removed." );
@@ -53,6 +53,14 @@
 		this.validatorZip.element.value = "";
 		this.validatorZip.$element.trigger( "blur" );
 		ok( !this.validatorZip.$element.is( ".invalid" ), "Does not have the invalid class." );
+
+		this.validatorZip.element.value = "ddd";
+		this.validatorZip.$element.trigger( "blur" );
+		ok( this.validatorZip.$element.is( ".invalid" ), "Has the invalid class with an invalid value." );
+
+		this.validatorZip.element.value = "02111";
+		this.validatorZip.$element.trigger( "blur" );
+		ok( !this.validatorZip.$element.is( ".invalid" ), "Invalid class with a valid value." );
 	});
 
 	module( "Payment", {
