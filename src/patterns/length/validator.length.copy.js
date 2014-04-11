@@ -9,8 +9,11 @@
 /* global jQuery:true */
 (function( Validator, $ ) {
 	$.extend( Validator.prototype.copy, {
-		"minlength": {
-			"message": "Needs to be at least {0} characters."
+		"length": {
+			"message": {
+				"minlength": "Needs to be at least {0} characters.",
+				"maxlength": "Needs to be less than or equal to {0} characters."
+			}
 		}
 	});
 

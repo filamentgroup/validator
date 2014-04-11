@@ -212,7 +212,8 @@
 			this.validatorNumeric = $( "[data-validate=numeric]" ).data( "validator" );
 			this.validatorZip = $( "[data-validate=zip]" ).data( "validator" );
 			this.validatorPhone = $( "[data-validate=phone]" ).data( "validator" );
-			this.validatorMinlength = $( "[data-validate=minlength]" ).data( "validator" );
+			this.validatorMinlength = $( "[data-validate=length][minlength]" ).data( "validator" );
+			this.validatorMaxlength = $( "[data-validate=length][maxlength]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validatorEmail = null;
@@ -220,6 +221,7 @@
 			this.validatorZip = null;
 			this.validatorPhone = null;
 			this.validatorMinlength = null;
+			this.validatorMaxlength = null;
 		}
 	});
 
@@ -255,8 +257,13 @@
 	});
 
 	test( "minlength", function(){
-		ok( !this.validatorMinlength.validateminlength( "22" ), "Should fail, requires 3 characters" );
-		ok( this.validatorMinlength.validateminlength( "2244" ), "Should pass, requires 3 characters" );
+		ok( !this.validatorMinlength.validatelength( "22" ), "Should fail, requires 3 characters" );
+		ok( this.validatorMinlength.validatelength( "2244" ), "Should pass, requires 3 characters" );
+	});
+
+	test( "maxlength", function(){
+		ok( !this.validatorMaxlength.validatelength( "2244" ), "Should fail, is more than 3 characters" );
+		ok( this.validatorMaxlength.validatelength( "22" ), "Should pass, is less than 3 characters" );
 	});
 
 })( window, jQuery );
