@@ -95,10 +95,13 @@
 	};
 
 	Validator.prototype.getErrorMessage = function( value ) {
+		var combinedMsg = this.$element.attr( "data-message" );
+
 		if( !value.length ) {
-			return this.$element.attr( 'data-required-message' ) || this.copy.required.message;
+			return combinedMsg || this.$element.attr( 'data-required-message' ) || this.copy.required.message;
 		}
-		var msg = this.$element.attr( 'data-' + this.type + '-message' ) || this.copy[ this.type ].message;
+
+		var msg = combinedMsg || this.$element.attr( 'data-' + this.type + '-message' ) || this.copy[ this.type ].message;
 
 		return this[ 'message' + this.type ] ?
 			this[ 'message' + this.type ].call( this, value, msg ) :
