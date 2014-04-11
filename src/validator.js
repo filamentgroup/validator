@@ -55,10 +55,10 @@
 	Validator.prototype.getValue = function() {
 		var $els;
 
-		if( this._isSelect() && this.$element.is( "[multiple]" ) ) {
+		if( this._isSelect() ) {
 			$els = this.$element.find( 'option:selected' );
 		} else if( this._isCheckboxRadio() ) {
-			$els = this.$element.closest( "form" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
+			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
 		}
 
 		if( $els ) {
@@ -94,17 +94,23 @@
 		return $prev.length ? $prev : $( '<div>' ).addClass( 'error-msg' ).insertBefore( $el );
 	};
 
+	/*
+		Order of message selection, if they exist:
+
+		{TYPE} is `required` or the key from `data-validate`:
+			this.message{TYPE}()
+			data-message
+			data-{TYPE}-message
+			this.copy.{TYPE}.message
+	 */
 	Validator.prototype.getErrorMessage = function( value ) {
-		var combinedMsg = this.$element.attr( "data-message" );
+		var key = !value.length ? "required" : this.type,
+			msg = this.$element.attr( "data-message" ) ||
+				this.$element.attr( "data-" + key + "-message" ) ||
+				this.copy[ key ].message;
 
-		if( !value.length ) {
-			return combinedMsg || this.$element.attr( 'data-required-message' ) || this.copy.required.message;
-		}
-
-		var msg = combinedMsg || this.$element.attr( 'data-' + this.type + '-message' ) || this.copy[ this.type ].message;
-
-		return this[ 'message' + this.type ] ?
-			this[ 'message' + this.type ].call( this, value, msg ) :
+		return this[ "message" + key ] ?
+			this[ "message" + key ].call( this, value, msg ) :
 			msg;
 	};
 

@@ -93,11 +93,11 @@
 				},
 				src: {
 					files: '<%= jshint.src.src %>',
-					tasks: ['jshint:src', 'qunit']
+					tasks: ['src']
 				},
 				test: {
 					files: '<%= jshint.test.src %>',
-					tasks: ['jshint:test', 'qunit']
+					tasks: ['test']
 				}
 			},
 			uglify: {
@@ -123,7 +123,9 @@
 
 		require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-		grunt.registerTask('default', [ 'jshint', 'concat', 'qunit', 'report' ]);
+		grunt.registerTask('test', [ 'jshint:test', 'qunit' ]);
+		grunt.registerTask('src', [ 'jshint', 'concat:css', 'concat:jscore', 'concat:jsconfig' ]);
+		grunt.registerTask('default', [ 'src', 'qunit', 'report' ]);
 		grunt.registerTask('report', [ 'uglify', 'bytesize', 'clean' ]);
 		grunt.registerTask('deploy', [ 'default', 'gh-pages' ]);
 

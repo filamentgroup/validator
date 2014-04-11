@@ -23,7 +23,7 @@
 			}
 
 			var validator = new Validator( this, {
-				applyElement: $el.closest( "label" )
+				applyElement: $el.closest( "label, .btn" )
 			});
 
 			$el.data( dataKey, validator );
