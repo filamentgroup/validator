@@ -64,7 +64,7 @@
 		if( $els ) {
 			return $els.map(function() {
 				return this.value;
-			});
+			}).get();
 		}
 
 		return this.element.value;
@@ -74,7 +74,7 @@
 		var result = false,
 			method = this[ 'validate' + this.type ];
 
-		if( value ) {
+		if( value.length ) {
 			if( !this.type ){
 				result = true;
 			} else if( this.type && method ){
@@ -95,7 +95,7 @@
 	};
 
 	Validator.prototype.getErrorMessage = function( value ) {
-		if( !value ) {
+		if( !value.length ) {
 			return this.$element.attr( 'data-required-message' ) || this.copy.required.message;
 		}
 		var msg = this.$element.attr( 'data-' + this.type + '-message' ) || this.copy[ this.type ].message;
