@@ -15,7 +15,7 @@
 				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 			// Task configuration.
 			clean: {
-				files: []
+				files: ["<%= uglify.dist.dest %>"]
 			},
 			concat: {
 				options: {
@@ -95,11 +95,18 @@
 					tasks: ['jshint:test', 'qunit']
 				}
 			},
+			uglify: {
+				dist: {
+					src: ['<%= concat.js.src %>'],
+					dest: 'dist/<%= pkg.name %>.min.js'
+				}
+			},
 			bytesize: {
 				dist: {
 					src: [
 						'dist/<%= pkg.name %>.css',
-						'dist/<%= pkg.name %>.js'
+						'dist/<%= pkg.name %>.js',
+						'dist/<%= pkg.name %>.min.js'
 					]
 				}
 			},
@@ -111,7 +118,8 @@
 
 		require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-		grunt.registerTask('default', [ 'jshint', 'concat', 'qunit', 'clean', 'bytesize' ]);
+		grunt.registerTask('default', [ 'jshint', 'concat', 'qunit', 'report' ]);
+		grunt.registerTask('report', [ 'uglify', 'bytesize', 'clean' ]);
 		grunt.registerTask('deploy', [ 'default', 'gh-pages' ]);
 
 	};
