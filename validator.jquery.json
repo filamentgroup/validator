@@ -23,5 +23,6 @@
   "dependencies": {
     "jquery": "*"
   },
-  "keywords": []
+  "keywords": [],
+  "validators": ["birthday", "ccexpiration", "credit", "email", "minlength", "numeric", "password", "passwordconfirm", "phone", "required", "zip"]
 }

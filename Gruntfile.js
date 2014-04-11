@@ -4,10 +4,16 @@
 
 	module.exports = function(grunt) {
 
+		var pkg = grunt.file.readJSON('validator.jquery.json');
+
+		function getValidatorPathPrefix( name ) {
+			return 'src/patterns/' + name + '/validator.' + name;
+		}
+
 		// Project configuration.
 		grunt.initConfig({
 			// Metadata.
-			pkg: grunt.file.readJSON('validator.jquery.json'),
+			pkg: pkg,
 			banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
 				'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 				'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
@@ -15,35 +21,21 @@
 				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 			// Task configuration.
 			clean: {
-				files: ["<%= uglify.dist.dest %>"]
+				files: ["<%= concat.js.dest %>", "<%= uglify.dist.dest %>"]
 			},
 			concat: {
 				options: {
 					banner: '<%= banner %>',
 					stripBanners: true
 				},
-				js: {
+				jscore: {
 					src: (function() {
-						var files = [],
-							// Add new validators here:
-							// Files: src/patterns/KEY/validator.KEY.[config.js,copy.js,.js]
-							validators = [
-								'birthday',
-								'ccexpiration',
-								'credit',
-								'email',
-								'minlength',
-								'numeric',
-								'password',
-								'passwordconfirm',
-								'phone',
-								'required',
-								'zip'
-							];
+						// Add new validators to validator.jquery.json
+						// Files: src/patterns/KEY/validator.KEY.[config.js,copy.js,.js]
+						var files = [];
 
-						validators.forEach(function( validator ) {
-							var prefix = 'src/patterns/' + validator + '/validator.' + validator;
-							files.push( prefix + '.config.js', prefix + '.copy.js', prefix + '.js' );
+						pkg.validators.forEach(function( validator ) {
+							files.push( getValidatorPathPrefix( validator ) + '.js' );
 						});
 
 						files.unshift( 'src/validator.js' );
@@ -52,6 +44,24 @@
 						return files;
 					}()),
 					dest: 'dist/<%= pkg.name %>.js'
+				},
+				jsconfig: {
+					src: (function() {
+						var files = [];
+
+						pkg.validators.forEach(function( validator ) {
+							var prefix = getValidatorPathPrefix( validator );
+							files.push( prefix + '.config.js',
+								prefix + '.copy.js' );
+						});
+
+						return files;
+					}()),
+					dest: 'dist/<%= pkg.name %>.config.js'
+				},
+				js: {
+					src: ['<%= concat.jscore.dest %>', '<%= concat.jsconfig.dest %>'],
+					dest: 'dist/<%= pkg.name %>.both-core-and-config.js'
 				},
 				css: {
 					src: ['src/validator.css'],
@@ -97,16 +107,16 @@
 			},
 			uglify: {
 				dist: {
-					src: ['<%= concat.js.src %>'],
+					src: ['<%= concat.js.dest %>'],
 					dest: 'dist/<%= pkg.name %>.min.js'
 				}
 			},
 			bytesize: {
 				dist: {
 					src: [
-						'dist/<%= pkg.name %>.css',
-						'dist/<%= pkg.name %>.js',
-						'dist/<%= pkg.name %>.min.js'
+						'<%= concat.css.dest %>',
+						'<%= concat.js.dest %>',
+						'<%= uglify.dist.src %>'
 					]
 				}
 			},
