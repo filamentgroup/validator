@@ -23,12 +23,13 @@
 
 	Validator.prototype.messagelength = function( value, msg ){
 		var min = this.$element.attr( "minlength" ),
-			max = this.$element.attr( "maxlength" );
+			max = this.$element.attr( "maxlength" ),
+			useSelect = this._isSelect() || this._isCheckboxRadio();
 
 		if( min && value.length < min ) {
-			return msg.minlength.replace( /\{\d\}/g, min );
+			return ( useSelect ? msg.minlengthselect : msg.minlength ).replace( /\{\d\}/g, min );
 		} else if( max && value.length > max ) {
-			return msg.maxlength.replace( /\{\d\}/g, max );
+			return ( useSelect ? msg.maxlengthselect : msg.maxlength ).replace( /\{\d\}/g, max );
 		}
 	};
 

@@ -12,7 +12,9 @@
 		"length": {
 			"message": {
 				"minlength": "Needs to be at least {0} characters.",
-				"maxlength": "Needs to be less than or equal to {0} characters."
+				"minlengthselect": "Please select at least {0} options.",
+				"maxlength": "Needs to be less than or equal to {0} characters.",
+				"maxlengthselect": "Please select less than or equal to {0} options."
 			}
 		}
 	});

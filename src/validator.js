@@ -43,21 +43,28 @@
 		return result;
 	};
 
-	Validator.prototype.getValue = function() {
-		var tag = this.element.tagName.toLowerCase(),
-			type = this.$element.attr( 'type' ),
-			values = [];
+	Validator.prototype._isSelect = function() {
+		return this.element.tagName.toLowerCase() === "select";
+	};
 
-		if( tag === 'select' && this.$element.is( "[multiple]" ) ) {
-			this.$element.find( 'option:selected' ).each(function() {
-				values.push( this.value );
+	Validator.prototype._isCheckboxRadio = function() {
+		var type = this.$element.attr( 'type' );
+		return type === 'radio' || type === 'checkbox';
+	};
+
+	Validator.prototype.getValue = function() {
+		var $els;
+
+		if( this._isSelect() && this.$element.is( "[multiple]" ) ) {
+			$els = this.$element.find( 'option:selected' );
+		} else if( this._isCheckboxRadio() ) {
+			$els = this.$element.closest( "form" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
+		}
+
+		if( $els ) {
+			return $els.map(function() {
+				return this.value;
 			});
-			return values;
-		} else if( type === 'radio' || type === 'checkbox' ) {
-			$( '[name="' + this.$element.attr( 'name' ) + '"]:checked' ).each(function() {
-				values.push( this.value );
-			});
-			return values;
 		}
 
 		return this.element.value;
