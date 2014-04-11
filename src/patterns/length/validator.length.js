@@ -14,7 +14,7 @@
 			min = this.$element.attr( "minlength" ),
 			max = this.$element.attr( "maxlength" );
 
-		if( ( !min || value.toString().length >= min ) && ( !max || value.toString().length <= max ) ) {
+		if( ( !min || value.length >= min ) && ( !max || value.length <= max ) ) {
 			result = true;
 		}
 
@@ -25,10 +25,10 @@
 		var min = this.$element.attr( "minlength" ),
 			max = this.$element.attr( "maxlength" );
 
-		if( !min || value.toString().length >= min ) {
+		if( min && value.length < min ) {
 			return msg.minlength.replace( /\{\d\}/g, min );
-		} else if( !max || value.toString().length <= max ) {
-			return msg.maxlength.replace( /\{\d\}/g, min );
+		} else if( max && value.length > max ) {
+			return msg.maxlength.replace( /\{\d\}/g, max );
 		}
 	};
 

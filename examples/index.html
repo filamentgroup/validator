@@ -25,6 +25,16 @@
 			<label>Minlength (3): <input type="text" required data-validate="length" minlength="3"></label>
 			<label>Maxlength (3): <input type="text" required data-validate="length" maxlength="3"></label>
 			<label>Both Min (3) and Maxlength (5): <input type="text" required data-validate="length" minlength="3" maxlength="5"></label>
+			<label>Checkbox Length: <input type="checkbox" required name="my-checkbox" data-validate="length" minlength="2"><input type="checkbox" required name="my-checkbox" data-validate="length" minlength="2"></label>
+			<label>Select Length:
+				<select required data-validate="length" minlength="2" multiple>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</label>
+			<button type="submit">Submit</button>
+
 			<h2>Not Required</h2>
 			<label>Credit Card Number: <input type="text" data-validate="credit" placeholder="XXXX XXXX XXXX XXXX"></label>
 			<label>CVV Number: <input type="text" data-validate="cvv"></label>

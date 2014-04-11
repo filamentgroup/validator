@@ -44,19 +44,20 @@
 	};
 
 	Validator.prototype.getValue = function() {
-		var type = this.$element.attr( 'type' ),
-			name,
-			count = 0;
+		var tag = this.element.tagName.toLowerCase(),
+			type = this.$element.attr( 'type' ),
+			values = [];
 
-		if( type === 'radio' || type === 'checkbox' ) {
-			name = this.$element.attr( 'name' );
-			$( '[name="' + name + '"]' ).each(function() {
-				if( this.checked ) {
-					count++;
-				}
+		if( tag === 'select' && this.$element.is( "[multiple]" ) ) {
+			this.$element.find( 'option:selected' ).each(function() {
+				values.push( this.value );
 			});
-
-			return count;
+			return values;
+		} else if( type === 'radio' || type === 'checkbox' ) {
+			$( '[name="' + this.$element.attr( 'name' ) + '"]:checked' ).each(function() {
+				values.push( this.value );
+			});
+			return values;
 		}
 
 		return this.element.value;
