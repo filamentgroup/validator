@@ -6,8 +6,16 @@
 
 		var pkg = grunt.file.readJSON('validator.jquery.json');
 
-		function getValidatorPathPrefix( name ) {
-			return 'src/patterns/' + name + '/validator.' + name;
+		function getValidatorFiles( names ) {
+			var files = [];
+
+			pkg.validators.forEach(function( validator ) {
+				names.forEach(function( suffix ) {
+					files.push( 'src/patterns/' + validator + '/validator.' + validator + suffix );
+				});
+			});
+
+			return files;
 		}
 
 		// Project configuration.
@@ -34,10 +42,7 @@
 						// Files: src/patterns/KEY/validator.KEY.[config.js,copy.js,.js]
 						var files = [];
 
-						pkg.validators.forEach(function( validator ) {
-							files.push( getValidatorPathPrefix( validator ) + '.js' );
-						});
-
+						files.push.apply( files, getValidatorFiles( ['.js'] ) );
 						files.unshift( 'src/validator.js' );
 						files.push( 'src/validator.init.js' );
 
@@ -46,22 +51,12 @@
 					dest: 'dist/<%= pkg.name %>.js'
 				},
 				jsconfig: {
-					src: (function() {
-						var files = [];
-
-						pkg.validators.forEach(function( validator ) {
-							var prefix = getValidatorPathPrefix( validator );
-							files.push( prefix + '.config.js',
-								prefix + '.copy.js' );
-						});
-
-						return files;
-					}()),
+					src: getValidatorFiles( ['.config.js', '.copy.js'] ),
 					dest: 'dist/<%= pkg.name %>.config.js'
 				},
 				js: {
 					src: ['<%= concat.jscore.dest %>', '<%= concat.jsconfig.dest %>'],
-					dest: 'dist/<%= pkg.name %>.both-core-and-config.js'
+					dest: 'dist/<%= pkg.name %>.core-and-config.js'
 				},
 				css: {
 					src: ['src/validator.css'],
@@ -108,7 +103,7 @@
 			uglify: {
 				dist: {
 					src: ['<%= concat.js.dest %>'],
-					dest: 'dist/<%= pkg.name %>.min.js'
+					dest: 'dist/<%= pkg.name %>.core-and-config.min.js'
 				}
 			},
 			bytesize: {
@@ -116,7 +111,7 @@
 					src: [
 						'<%= concat.css.dest %>',
 						'<%= concat.js.dest %>',
-						'<%= uglify.dist.src %>'
+						'<%= uglify.dist.dest %>'
 					]
 				}
 			},
