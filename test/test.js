@@ -207,6 +207,42 @@
 		ok( this.validatorPWConf.validatepasswordconfirm( pw ), "The passwords should match" );
 	});
 
+	module( "Lengths", {
+		setup: function() {
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.validatorMinlength = $( "[data-validate=length][minlength]" ).data( "validator" );
+			this.validatorMaxlength = $( "[data-validate=length][maxlength]" ).data( "validator" );
+			this.validatorMinlengthWords = $( "[data-validate=length][minlength][data-words]" ).data( "validator" );
+			this.validatorMaxlengthWords = $( "[data-validate=length][maxlength][data-words]" ).data( "validator" );
+		},
+		teardown: function() {
+			this.validatorMinlength = null;
+			this.validatorMaxlength = null;
+			this.validatorMinlengthWords = null;
+			this.validatorMaxlengthWords = null;
+		}
+	});
+
+	test( "minlength", function(){
+		ok( !this.validatorMinlength.validatelength( "22" ), "Should fail, requires 3 characters" );
+		ok( this.validatorMinlength.validatelength( "2244" ), "Should pass, requires 3 characters" );
+	});
+
+	test( "maxlength", function(){
+		ok( !this.validatorMaxlength.validatelength( "2244" ), "Should fail, is more than 3 characters" );
+		ok( this.validatorMaxlength.validatelength( "22" ), "Should pass, is less than 3 characters" );
+	});
+
+	test( "minlength words", function(){
+		ok( !this.validatorMinlengthWords.validatelength( "Two words" ), "Should fail, requires 2 words" );
+		ok( this.validatorMinlengthWords.validatelength( "This is three" ), "Should pass, requires 3 words" );
+	});
+
+	test( "maxlength", function(){
+		ok( !this.validatorMaxlengthWords.validatelength( "This is four words" ), "Should fail, is more than 3 words" );
+		ok( this.validatorMaxlengthWords.validatelength( "Two words" ), "Should pass, is less than 3 words" );
+	});
+
 	module( "Other", {
 		setup: function() {
 			$( "#qunit-fixture" ).trigger( "enhance" );
@@ -214,16 +250,12 @@
 			this.validatorNumeric = $( "[data-validate=numeric]" ).data( "validator" );
 			this.validatorZip = $( "[data-validate=zip]" ).data( "validator" );
 			this.validatorPhone = $( "[data-validate=phone]" ).data( "validator" );
-			this.validatorMinlength = $( "[data-validate=length][minlength]" ).data( "validator" );
-			this.validatorMaxlength = $( "[data-validate=length][maxlength]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validatorEmail = null;
 			this.validatorNumeric = null;
 			this.validatorZip = null;
 			this.validatorPhone = null;
-			this.validatorMinlength = null;
-			this.validatorMaxlength = null;
 		}
 	});
 
@@ -256,16 +288,6 @@
 		ok( this.validatorZip.validatezip( "98109" ), "Zip code of 5 digits should work" );
 		ok( this.validatorZip.validatezip( "98109-5555" ), "Zip code of 5 digits-4 digits should work" );
 		ok( !this.validatorZip.validatezip( "98a109-5555" ), "Zip code is invalid" );
-	});
-
-	test( "minlength", function(){
-		ok( !this.validatorMinlength.validatelength( "22" ), "Should fail, requires 3 characters" );
-		ok( this.validatorMinlength.validatelength( "2244" ), "Should pass, requires 3 characters" );
-	});
-
-	test( "maxlength", function(){
-		ok( !this.validatorMaxlength.validatelength( "2244" ), "Should fail, is more than 3 characters" );
-		ok( this.validatorMaxlength.validatelength( "22" ), "Should pass, is less than 3 characters" );
 	});
 
 })( window, jQuery );

@@ -9,12 +9,25 @@
 /* global jQuery:true */
 (function( Validator, $, window, undefined ) {
 
+	Validator.prototype._getValueLength = function( value ){
+		if( this.$element.is( "[data-words]" ) ) {
+			return value.match(/[^\s]+/g).length;
+		}
+
+		return value.length;
+	};
+
+	Validator.prototype._getMaxLength = function(){
+		return this.$element.attr( "maxlength" ) || this.$element.attr( "data-maxlength" );
+	};
+
 	Validator.prototype.validatelength = function( value ){
 		var result = false,
 			min = this.$element.attr( "minlength" ),
-			max = this.$element.attr( "maxlength" );
+			max = this._getMaxLength(),
+			len = this._getValueLength( value );
 
-		if( ( !min || value.length >= min ) && ( !max || value.length <= max ) ) {
+		if( ( !min || len >= min ) && ( !max || len <= max ) ) {
 			result = true;
 		}
 
@@ -23,13 +36,22 @@
 
 	Validator.prototype.messagelength = function( value, msg ){
 		var min = this.$element.attr( "minlength" ),
-			max = this.$element.attr( "maxlength" ),
-			useSelect = this._isSelect() || this._isCheckboxRadio();
+			max = this._getMaxLength(),
+			len = this._getValueLength( value ),
+			msgType;
 
-		if( min && value.length < min ) {
-			return ( ( useSelect ? msg.minlengthselect : msg.minlength ) || msg ).replace( /\{\d\}/g, min );
-		} else if( max && value.length > max ) {
-			return ( ( useSelect ? msg.maxlengthselect : msg.maxlength ) || msg ).replace( /\{\d\}/g, max );
+		if( this._isSelect() || this._isCheckboxRadio() ) {
+			msgType = msg.options;
+		} else if( this.$element.is( "[data-words]" ) ) {
+			msgType = msg.words;
+		} else {
+			msgType = msg.characters;
+		}
+
+		if( min && len < min ) {
+			return ( ( min !== 1 ? msgType.plural.minlength : msgType.singular.minlength ) || msg ).replace( /\{\d\}/g, min );
+		} else if( max && len > max ) {
+			return ( ( max !== 1 ? msgType.plural.maxlength : msgType.singular.maxlength ) || msg ).replace( /\{\d\}/g, max );
 		}
 	};
 

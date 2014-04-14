@@ -11,10 +11,36 @@
 	$.extend( Validator.prototype.copy, {
 		"length": {
 			"message": {
-				"minlength": "Needs to be at least {0} characters.",
-				"minlengthselect": "Please select at least {0} options.",
-				"maxlength": "Needs to be less than or equal to {0} characters.",
-				"maxlengthselect": "Please select less than or equal to {0} options."
+				"characters": {
+					"singular": {
+						"minlength": "Needs to be at least one character.",
+						"maxlength": "Needs to be less than or equal to one character."
+					},
+					"plural": {
+						"minlength": "Needs to be at least {0} characters.",
+						"maxlength": "Needs to be less than or equal to {0} characters."
+					}
+				},
+				"options": {
+					"singular": {
+						"minlength": "Select at least one option.",
+						"maxlength": "Select less than or equal to one option."
+					},
+					"plural": {
+						"minlength": "Select at least {0} options.",
+						"maxlength": "Select less than or equal to {0} options."
+					}
+				},
+				"words": {
+					"singular": {
+						"minlength": "Needs to be at least one word.",
+						"maxlength": "Needs to be less than or equal to one word."
+					},
+					"plural": {
+						"minlength": "Needs to be at least {0} words.",
+						"maxlength": "Needs to be less than or equal to {0} words."
+					}
+				}
 			}
 		}
 	});
