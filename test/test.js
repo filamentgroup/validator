@@ -149,11 +149,13 @@
 	module( "Passwords", {
 		setup: function() {
 			$( "#qunit-fixture" ).trigger( "enhance" );
-			this.validatorPW = $( "[data-validate=password]" ).data( "validator" );
+			this.validatorPW = $( "#password1" ).data( "validator" );
+			this.validatorPW2 = $( "#password2" ).data( "validator" );
 			this.validatorPWConf = $( "[data-validate=passwordconfirm]" ).data( "validator" );
 		},
 		teardown: function() {
 			this.validatorPW = null;
+			this.validatorPW2 = null;
 			this.validatorPWConf = null;
 		}
 	});
@@ -192,13 +194,13 @@
 
 		this.validatorPWConf.element.value = "foo";
 
-		ok( this.validatorPWConf.validatepasswordconfirm( pw ), "The passwords should match" );
+		ok( !this.validatorPWConf.validatepasswordconfirm( pw ), "The passwords should not match, selected the wrong password field to compare" );
 	});
 
-	test( "valid password confirm", function(){
+	test( "valid password should confirm, selects the right password field", function(){
 		var pw = "Vali1dator";
-		ok( this.validatorPW.validatepassword( pw ), "This is a valid password" );
-		[this.validatorPW.element, this.validatorPWConf.element ].forEach( function( el ){
+		ok( this.validatorPW2.validatepassword( pw ), "This is a valid password" );
+		[this.validatorPW2.element, this.validatorPWConf.element ].forEach( function( el ){
 			el.value = pw;
 		});
 
