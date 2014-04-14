@@ -93,7 +93,7 @@
 				},
 				src: {
 					files: '<%= jshint.src.src %>',
-					tasks: ['src']
+					tasks: ['src', 'test']
 				},
 				test: {
 					files: '<%= jshint.test.src %>',

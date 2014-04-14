@@ -63,7 +63,7 @@
 
 		if( $els ) {
 			return $els.map(function() {
-				return this.value;
+				return this.value !== "" ? this.value : null;
 			}).get();
 		}
 
