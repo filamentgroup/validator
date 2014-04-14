@@ -10,8 +10,7 @@
 (function( Validator, $ ) {
 	$.extend( Validator.prototype.copy, {
 		"phone" : {
-			"placeholder": "206 555 0123",
-			"message" : "Phone numbers should have 10 digits."
+			"message" : "Phone numbers should have 9 or 10 digits."
 		}
 	});
 
