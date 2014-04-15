@@ -36,15 +36,17 @@
 					banner: '<%= banner %>',
 					stripBanners: true
 				},
+				jsinit: {
+					src: ["src/validator.init.js"],
+					dest: 'dist/<%= pkg.name %>-init.js'
+				},
 				jscore: {
 					src: (function() {
 						// Add new validators to validator.jquery.json
 						// Files: src/patterns/KEY/validator.KEY.[config.js,copy.js,.js]
-						var files = [];
+						var files = ["src/validator.js"];
 
 						files.push.apply( files, getValidatorFiles( ['.js'] ) );
-						files.unshift( 'src/validator.js' );
-						files.push( 'src/validator.init.js' );
 
 						return files;
 					}()),
@@ -55,7 +57,7 @@
 					dest: 'dist/<%= pkg.name %>.config.js'
 				},
 				js: {
-					src: ['<%= concat.jscore.dest %>', '<%= concat.jsconfig.dest %>'],
+					src: ['<%= concat.jscore.dest %>', '<%= concat.jsinit.dest %>', '<%= concat.jsconfig.dest %>'],
 					dest: 'dist/<%= pkg.name %>.core-and-config.js'
 				},
 				css: {
@@ -124,7 +126,7 @@
 		require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
 		grunt.registerTask('test', [ 'jshint:test', 'qunit' ]);
-		grunt.registerTask('src', [ 'jshint', 'concat:css', 'concat:jscore', 'concat:jsconfig' ]);
+		grunt.registerTask('src', [ 'jshint', 'concat:css', 'concat:jscore', 'concat:jsinit', 'concat:jsconfig' ]);
 		grunt.registerTask('default', [ 'src', 'qunit', 'report' ]);
 		grunt.registerTask('report', [ 'concat:js', 'uglify', 'bytesize', 'clean' ]);
 		grunt.registerTask('deploy', [ 'default', 'gh-pages' ]);
