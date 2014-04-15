@@ -88,10 +88,11 @@
 	};
 
 	Validator.prototype.getErrorMessageElement = function() {
-		var $el = this.opts.$applyElement,
-			$prev = $el.prev( '.error-msg' );
+		var callback = this.opts.getErrorAnchor,
+			$anchor = callback ? callback.call( this ) : this.opts.$applyElement,
+			$prev = $anchor.prev( '.error-msg' );
 
-		return $prev.length ? $prev : $( '<div>' ).addClass( 'error-msg' ).insertBefore( $el );
+		return $prev.length ? $prev : $( '<div>' ).addClass( 'error-msg' ).insertBefore( $anchor );
 	};
 
 	/*
