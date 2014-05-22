@@ -1,6 +1,8 @@
 # Validator
 
-Description
+[![Filament Group](http://filamentgroup.com/images/fg-logo-positive-sm-crop.png) ](http://www.filamentgroup.com/)
+
+A small validation library.
 
 ## Getting Started
 Download the [development version][max].
