@@ -90,9 +90,10 @@
 	Validator.prototype.getErrorMessageElement = function() {
 		var callback = this.opts.getErrorAnchor,
 			$anchor = callback ? callback.call( this ) : this.opts.$applyElement,
-			$prev = $anchor.prev( '.error-msg' );
+			isPlaceAfter = $anchor.is( '[data-validate-after]' ),
+			$existingError = $anchor[ isPlaceAfter ? 'next' : 'prev' ]( '.error-msg' );
 
-		return $prev.length ? $prev : $( '<div>' ).addClass( 'error-msg' ).insertBefore( $anchor );
+		return $existingError.length ? $existingError : $( '<div>' ).addClass( 'error-msg' )[ isPlaceAfter ? 'insertAfter' : 'insertBefore' ]( $anchor );
 	};
 
 	/*
