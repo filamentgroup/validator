@@ -2,6 +2,7 @@
 /*global test:true*/
 /*global equal:true*/
 /*global jQuery:true*/
+/*global ok:true*/
 (function( w, $ ) {
 	"use strict";
 
