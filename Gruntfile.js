@@ -1,10 +1,17 @@
 /*global module:true*/
+/*global require:true*/
 (function(){
 	'use strict';
 
 	module.exports = function(grunt) {
 
 		var pkg = grunt.file.readJSON('validator.jquery.json');
+		var validators = grunt.option('validators');
+
+		if( validators && validators.length ){
+			validators = validators.split(' ');
+			pkg.validators = validators;
+		}
 
 		function getValidatorFiles( names ) {
 			var files = [];
@@ -127,7 +134,7 @@
 
 		grunt.registerTask('test', [ 'jshint:test', 'qunit' ]);
 		grunt.registerTask('src', [ 'jshint', 'concat:css', 'concat:jscore', 'concat:jsinit', 'concat:jsconfig' ]);
-		grunt.registerTask('default', [ 'src', 'qunit', 'report' ]);
+		grunt.registerTask('default', [ 'jshint:test','qunit', 'src', 'report' ]);
 		grunt.registerTask('report', [ 'concat:js', 'uglify', 'bytesize', 'clean' ]);
 		grunt.registerTask('deploy', [ 'default', 'gh-pages' ]);
 

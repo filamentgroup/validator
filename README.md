@@ -38,6 +38,12 @@ Add the `data-validate` attribute with a validator key. Valid keys include: `bir
 ### Custom Messages
 
 
+## Build
+
+To get all of the validation library, just run `grunt` from your
+commandline. If you would like to specify which validator extensions
+you'd like in your build, just use the `--validators` argument. Example:
+`grunt --validators="birthday zip email"`
 
 ## Demo
 Check the [demo](http://filamentgroup.github.io/validator/examples/)
