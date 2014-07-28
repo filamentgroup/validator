@@ -91,7 +91,7 @@
 		var callback = this.opts.getErrorAnchor,
 			$anchor = callback ? callback.call( this ) : this.opts.$applyElement,
 			isPlaceAfter = $anchor.is( '[data-validate-after]' ),
-			$existingError = $anchor[ isPlaceAfter ? 'next' : 'prev' ]( '.error-msg' );
+			$existingError = $anchor[ isPlaceAfter ? 'next' : 'prev' ]().filter( '.error-msg' );
 
 		return $existingError.length ? $existingError : $( '<div>' ).addClass( 'error-msg' )[ isPlaceAfter ? 'insertAfter' : 'insertBefore' ]( $anchor );
 	};
