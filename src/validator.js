@@ -53,10 +53,11 @@
 	};
 
 	Validator.prototype.getValue = function() {
-		var $els, arr;
+		var $els, arr, options;
 
 		if( this._isSelect() ) {
-			$els = this.$element.find( 'option:selected' );
+			options = this.$element.find( 'option' );
+			$els = options[ this.element.selectedIndex ];
 		} else if( this._isCheckboxRadio() ) {
 			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
 		}
