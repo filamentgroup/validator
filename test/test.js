@@ -3,6 +3,7 @@
 /*global equal:true*/
 /*global jQuery:true*/
 /*global ok:true*/
+/*global console:true*/
 (function( w, $ ) {
 	"use strict";
 
@@ -290,5 +291,23 @@
 		ok( this.validatorZip.validatezip( "98109-5555" ), "Zip code of 5 digits-4 digits should work" );
 		ok( !this.validatorZip.validatezip( "98a109-5555" ), "Zip code is invalid" );
 	});
+
+	module( "required select", {
+		setup: function(){
+			$( "#qunit-fixture" ).trigger( "enhance" );
+			this.validatorSelect = $( "#select1" ).data( "validator" );
+		}
+	});
+
+	test( "select", function(){
+		ok( this.validatorSelect.$element.is( "[required]" ), "Element is required." );
+		console.log( this.validatorSelect.element.className );
+		this.validatorSelect.element.selectedIndex = -1;
+		this.validatorSelect.$element.trigger( "blur" );
+		ok( this.validatorSelect.$element.is( ".invalid" ), "Has invalid class." );
+		console.log( this.validatorSelect.element.className );
+		ok( this.validatorSelect.$element.prev().filter( '.error-msg' ).length, "Error message is shown." );
+	});
+
 
 })( window, jQuery );

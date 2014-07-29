@@ -53,13 +53,21 @@
 	};
 
 	Validator.prototype.getValue = function() {
-		var $els, arr, options;
+		var $els, arr, options, selected;
 
 		if( this._isSelect() ) {
 			options = this.$element.find( 'option' );
-			$els = options[ this.element.selectedIndex ];
+			if( this.element.selectedIndex > -1 ){
+				selected = $( options[ this.element.selectedIndex ] );
+			} else {
+				selected = null;
+			}
 		} else if( this._isCheckboxRadio() ) {
 			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
+		}
+
+		if( options && options.length ){
+			return selected;
 		}
 
 		if( $els ) {
@@ -77,7 +85,7 @@
 		var result = false,
 			method = this[ 'validate' + this.type ];
 
-		if( value.length ) {
+		if( value && value.length ) {
 			if( !this.type ){
 				result = true;
 			} else if( this.type && method ){
@@ -109,10 +117,15 @@
 			this.copy.{TYPE}.message
 	 */
 	Validator.prototype.getErrorMessage = function( value ) {
-		var key = !value.length ? "required" : this.type,
-			msg = this.$element.attr( "data-message" ) ||
-				this.$element.attr( "data-" + key + "-message" ) ||
-				this.copy[ key ].message;
+		var key, msg;
+		if( !(value && value.length) ){
+			key = "required";
+		} else {
+			key = this.type;
+		}
+		msg = this.$element.attr( "data-message" ) ||
+			this.$element.attr( "data-" + key + "-message" ) ||
+			this.copy[ key ].message;
 
 		return this[ "message" + key ] ?
 			this[ "message" + key ].call( this, value, msg ) :
