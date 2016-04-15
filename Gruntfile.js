@@ -134,7 +134,7 @@
 
 		grunt.registerTask('test', [ 'jshint:test', 'qunit' ]);
 		grunt.registerTask('src', [ 'jshint', 'concat:css', 'concat:jscore', 'concat:jsinit', 'concat:jsconfig' ]);
-		grunt.registerTask('default', [ 'jshint:test','qunit', 'src', 'report' ]);
+		grunt.registerTask('default', [ 'src', 'jshint:test','qunit', 'report' ]);
 		grunt.registerTask('report', [ 'concat:js', 'uglify', 'bytesize', 'clean' ]);
 		grunt.registerTask('deploy', [ 'default', 'gh-pages' ]);
 

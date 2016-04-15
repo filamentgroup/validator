@@ -103,7 +103,7 @@
 			"placeholder": "YYYY MM"
 		},
 		"cvv" : {
-			"message" : "Security Codes require a valid card credit card number.",
+			"message" : "Security code requires a valid card credit card number.",
 			"placeholder": "3–4 Digits",
 			"visa": {
 				"placeholder": "3 Digits",
@@ -241,7 +241,6 @@
 (function( Validator, $ ) {
 	$.extend( Validator.prototype.copy, {
 		"phone" : {
-			"placeholder": "206 555 0123",
 			"message" : "Phone numbers should have 10 digits."
 		}
 	});

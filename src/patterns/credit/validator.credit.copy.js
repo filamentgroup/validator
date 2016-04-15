@@ -29,7 +29,7 @@
 			"placeholder": "YYYY MM"
 		},
 		"cvv" : {
-			"message" : "Security Codes require a valid card credit card number.",
+			"message" : "Security code requires a valid card credit card number.",
 			"placeholder": "3–4 Digits",
 			"visa": {
 				"placeholder": "3 Digits",

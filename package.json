@@ -33,5 +33,5 @@
     "matchdep": "~0.1.2",
     "grunt-bytesize": "~0.1.1"
   },
-  "validators": ["birthday", "ccexpiration", "credit", "email", "length", "numeric", "password", "passwordconfirm", "phone", "required", "zip"]
+  "validators": ["birthday", "minlength", "ccexpiration", "credit", "email", "length", "numeric", "password", "passwordconfirm", "phone", "required", "zip"]
 }

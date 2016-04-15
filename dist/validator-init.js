@@ -26,7 +26,16 @@
 
 			$el.bind( "blur", function() {
 				validator.validate();
+				//if( this.checkValidity ) {
+				//	this.checkValidity();
+				//}
 			});
+
+			//$el.bind( "invalid", function() {
+			//	if( !( this.validity && this.validity.patternMismatch ) ) {
+			//		validator.invalidate();
+			//	}
+			//});
 
 			$el.closest( "form" ).bind( "submit", function( e ){
 				if( !validator.validate() ){

@@ -18,6 +18,7 @@
 
 		this.type = this.$element.attr( "data-validate" );
 		this.required = this.$element.is( "[required]" );
+		this.invalidValue = this.$element.attr( "data-invalid-value" ) || "-1";
 	};
 
 	Validator.prototype.config = {};
@@ -58,27 +59,31 @@
 	};
 
 	Validator.prototype.getValue = function() {
-		var $els, arr, options, selected;
+		var $els, arr, $options, $selected, self = this;
 
 		if( this._isSelect() ) {
-			options = this.$element.find( 'option' );
+			$options = this.$element.find( 'option' );
 			if( this.element.selectedIndex > -1 ){
-				selected = $( options[ this.element.selectedIndex ] );
+				$selected = $options.filter(function() {
+					return this.selected;
+				});
 			} else {
-				selected = null;
+				$selected = null;
 			}
 		} else if( this._isCheckboxRadio() ) {
 			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
 		}
 
-		if( options && options.length ){
-			return selected;
+		if( $options && $options.length ){
+			return $selected;
 		}
 
 		if( $els ) {
 			arr = [];
 			$els.each(function(){
-				arr.push(this.value !== "" ? this.value : null);
+				if( this.value !== "" && this.value !== self.invalidValue ) {
+					arr.push( this.value );
+				}
 			});
 			return $( arr ).get();
 		}
@@ -90,7 +95,11 @@
 		var result = false,
 			method = this[ 'validate' + this.type ];
 
-		if( value && value.length ) {
+		if( typeof value === "undefined" || value === null ) {
+			return !this.required;
+		}
+
+		if( value.length ) { // string or array
 			if( !this.type ){
 				result = true;
 			} else if( this.type && method ){
@@ -157,6 +166,21 @@
 
 }( Validator, jQuery, this ));
 
+/* global jQuery:true */
+(function( Validator, $, window, undefined ) {
+
+  Validator.prototype.validateminlength = function( val ){
+    var result = false,
+        pattern = "^[0-9]{"+ this.$element.attr( "minlength" ) +"}$";
+
+    if ( new RegExp( pattern ).test( val ) ) {
+      result = val;
+    }
+
+    return result;
+  };
+
+}( Validator, jQuery, this ));
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $, window, undefined ) {
