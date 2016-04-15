@@ -5,7 +5,7 @@
 
 	module.exports = function(grunt) {
 
-		var pkg = grunt.file.readJSON('validator.jquery.json');
+		var pkg = grunt.file.readJSON('package.json');
 		var validators = grunt.option('validators');
 
 		if( validators && validators.length ){
@@ -29,11 +29,11 @@
 		grunt.initConfig({
 			// Metadata.
 			pkg: pkg,
-			banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+			banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
 				'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 				'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 				'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+				' Licensed <%= pkg.license %> */\n',
 			// Task configuration.
 			clean: {
 				files: ["<%= concat.js.dest %>", "<%= uglify.dist.dest %>"]
@@ -49,7 +49,7 @@
 				},
 				jscore: {
 					src: (function() {
-						// Add new validators to validator.jquery.json
+						// Add new validators to package.json
 						// Files: src/patterns/KEY/validator.KEY.[config.js,copy.js,.js]
 						var files = ["src/validator.js"];
 

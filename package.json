@@ -1,10 +1,23 @@
 {
   "name": "validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "description": "Lightweight validation library",
   "engines": {
     "node": ">= 0.8.0"
   },
   "private": true,
+  "homepage": "https://github.com/filamentgroup/validator",
+  "author": {
+    "name": "Filament Group",
+    "email": "hello@filamentgroup.com",
+    "url": "http://www.filamentgroup.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filamentgroup/validator.git"
+  },
+  "bugs": "https://github.com/filamentgroup/validator/issues",
+  "license": "MIT",
   "scripts": {
     "test": "grunt qunit"
   },
@@ -19,5 +32,6 @@
     "grunt": "~0.4.2",
     "matchdep": "~0.1.2",
     "grunt-bytesize": "~0.1.1"
-  }
+  },
+  "validators": ["birthday", "ccexpiration", "credit", "email", "length", "numeric", "password", "passwordconfirm", "phone", "required", "zip"]
 }
