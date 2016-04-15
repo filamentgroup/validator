@@ -1,9 +1,10 @@
 {
   "name": "validator",
-  "version": "0.0.0-ignored",
+  "version": "1.0.0",
   "engines": {
     "node": ">= 0.8.0"
   },
+  "private": true,
   "scripts": {
     "test": "grunt qunit"
   },
