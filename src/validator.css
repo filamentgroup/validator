@@ -3,13 +3,13 @@
 [data-validate] {
 }
 .invalid {
-  color: red;
 }
 .invalid [required],
 .invalid [data-validate] {
-  border-color: red;
+  border-color: #dc0014;
 }
 .error-msg {
   font-style: italic;
   font-size: .8125em;
+  color: #dc0014;
 }
