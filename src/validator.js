@@ -74,7 +74,9 @@
 				$selected = null;
 			}
 		} else if( this._isCheckboxRadio() ) {
-			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
+			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]' ).filter(function() {
+				return this.checked;
+			});
 		}
 
 		if( $options && $options.length ){
@@ -88,7 +90,7 @@
 					arr.push( this.value );
 				}
 			});
-			return $( arr ).get();
+			return arr;
 		}
 
 		return this.element.value;
