@@ -100,9 +100,13 @@
 					files: '<%= jshint.gruntfile.src %>',
 					tasks: ['jshint:gruntfile']
 				},
-				src: {
+				srcjs: {
 					files: '<%= jshint.src.src %>',
 					tasks: ['src', 'test']
+				},
+				srccss: {
+					files: '<%= concat.css.src %>',
+					tasks: ['src']
 				},
 				test: {
 					files: '<%= jshint.test.src %>',
