@@ -42,12 +42,12 @@
 		this.validatorPhone.element.value = "";
 		this.validatorPhone.$element.trigger( "blur" );
 		ok( this.validatorPhone.$element.is( ".invalid" ), "Has invalid class." );
-		ok( this.validatorPhone.$element.prev().filter( '.error-msg' ).length, "Error message is shown." );
+		ok( this.validatorPhone.$element.next().filter( '.error-msg' ).length, "Error message is shown." );
 
 		this.validatorPhone.element.value = "617 482 7120";
 		this.validatorPhone.$element.trigger( "blur" );
 		ok( !this.validatorPhone.$element.is( ".invalid" ), "Invalid class removed after value added." );
-		ok( !this.validatorPhone.$element.prev().filter( '.error-msg' ).length, "Error message was removed." );
+		ok( !this.validatorPhone.$element.next().filter( '.error-msg' ).length, "Error message was removed." );
 	});
 
 	test( "Not required should not show error", function() {
@@ -306,7 +306,7 @@
 		this.validatorSelect.$element.trigger( "blur" );
 		ok( this.validatorSelect.$element.is( ".invalid" ), "Has invalid class." );
 		console.log( this.validatorSelect.element.className );
-		ok( this.validatorSelect.$element.prev().filter( '.error-msg' ).length, "Error message is shown." );
+		ok( this.validatorSelect.$element.next().filter( '.error-msg' ).length, "Error message is shown." );
 	});
 
 
