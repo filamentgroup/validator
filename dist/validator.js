@@ -1,4 +1,4 @@
-/*! validator - v2.0.0 - 2016-04-18
+/*! validator - v2.0.2 - 2016-04-18
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 (function( $, w ){
@@ -65,7 +65,7 @@
 			$options = this.$element.find( 'option' );
 			if( this.element.selectedIndex > -1 ){
 				$selected = $options.filter(function() {
-					return this.selected;
+					return this.selected && !!this.value && !this.disabled;
 				});
 			} else {
 				$selected = null;
