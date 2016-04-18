@@ -1,4 +1,4 @@
-/*! validator - v1.0.1 - 2016-04-15
+/*! validator - v1.0.2 - 2016-04-18
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 /* global Validator:true */

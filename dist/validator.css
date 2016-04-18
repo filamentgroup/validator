@@ -1,17 +1,17 @@
-/*! validator - v1.0.1 - 2016-04-15
+/*! validator - v1.0.2 - 2016-04-18
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 [required],
 [data-validate] {
 }
 .invalid {
-  color: red;
 }
 .invalid [required],
 .invalid [data-validate] {
-  border-color: red;
+  border-color: #dc0014;
 }
 .error-msg {
   font-style: italic;
   font-size: .8125em;
+  color: #dc0014;
 }
