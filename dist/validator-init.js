@@ -19,7 +19,7 @@
 			}
 
 			var validator = new Validator( this, {
-				applyElement: $el.parents( "label, .btn" ).last()
+				applyElement: $el.parents().filter( "input, textarea, label, .custom-select, [data-validator-anchor]" ).last()
 			});
 
 			$el.data( dataKey, validator );
