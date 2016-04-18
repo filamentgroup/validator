@@ -1,4 +1,4 @@
-/*! validator - v1.0.2 - 2016-04-18
+/*! validator - v2.0.0 - 2016-04-18
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 (function( $, w ){
@@ -115,10 +115,10 @@
 	Validator.prototype.getErrorMessageElement = function() {
 		var callback = this.opts.getErrorAnchor,
 			$anchor = callback ? callback.call( this ) : this.opts.$applyElement,
-			isPlaceAfter = $anchor.is( '[data-validate-after]' ),
-			$existingError = $anchor[ isPlaceAfter ? 'next' : 'prev' ]().filter( '.error-msg' );
+			isPlaceBefore = $anchor.is( '[data-validate-before]' ),
+			$existingError = $anchor[ isPlaceBefore ? 'prev' : 'next' ]().filter( '.error-msg' );
 
-		return $existingError.length ? $existingError : $( '<div>' ).addClass( 'error-msg' )[ isPlaceAfter ? 'insertAfter' : 'insertBefore' ]( $anchor );
+		return $existingError.length ? $existingError : $( '<div>' ).addClass( 'error-msg' )[ isPlaceBefore ? 'insertBefore' : 'insertAfter' ]( $anchor );
 	};
 
 	/*
