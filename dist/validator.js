@@ -1,4 +1,4 @@
-/*! validator - v2.0.2 - 2016-04-18
+/*! validator - v2.0.3 - 2016-04-18
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 (function( $, w ){
@@ -71,7 +71,9 @@
 				$selected = null;
 			}
 		} else if( this._isCheckboxRadio() ) {
-			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]:checked' );
+			$els = this.$element.closest( "form, body" ).find( '[name="' + this.$element.attr( 'name' ) + '"]' ).filter(function() {
+				return this.checked;
+			});
 		}
 
 		if( $options && $options.length ){
@@ -85,7 +87,7 @@
 					arr.push( this.value );
 				}
 			});
-			return $( arr ).get();
+			return arr;
 		}
 
 		return this.element.value;
