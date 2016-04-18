@@ -29,13 +29,35 @@
 				<input type="checkbox" required name="my-checkbox-2" data-validate="length" minlength="2">
 				<input type="checkbox" required name="my-checkbox-2" data-validate="length" minlength="2">
 			</label>
-			<div class="btn btn-select">Select Length:
-				<select required data-validate="length" minlength="2" multiple>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
-				</select>
-			</div>
+			<label>Select 1: </label>
+				<div class="custom-select">
+					<select required>
+						<option></option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+				</div>
+			</label>
+			<label>Select 1 (readonly disabled Default option): </label>
+				<div class="custom-select">
+					<select required>
+						<option selected disabled value="-1">Disabled Default Option</option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+				</div>
+			</label>
+			<label>Select at least 2:
+				<div class="custom-select">
+					<select required data-validate="length" minlength="2" multiple>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+				</div>
+			</label>
 			<button type="submit">Submit</button>
 
 			<h2>Not Required</h2>

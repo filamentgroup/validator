@@ -68,7 +68,7 @@
 			$options = this.$element.find( 'option' );
 			if( this.element.selectedIndex > -1 ){
 				$selected = $options.filter(function() {
-					return this.selected;
+					return this.selected && !!this.value && !this.disabled;
 				});
 			} else {
 				$selected = null;
