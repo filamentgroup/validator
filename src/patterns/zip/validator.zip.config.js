@@ -10,7 +10,7 @@
 (function( Validator, $ ) {
 	$.extend( Validator.prototype.config, {
 		"zip" : {
-			"pattern" : "^\\d{5}(-\\d{4})?$"
+			"pattern" : "^\\d{5}(-?\\d{4})?$"
 		}
 	});
 
