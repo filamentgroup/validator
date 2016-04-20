@@ -60,7 +60,13 @@
 					dest: 'dist/<%= pkg.name %>.js'
 				},
 				jsconfig: {
-					src: getValidatorFiles( ['.config.js', '.copy.js'] ),
+					src: (function() {
+						var files = ["node_modules/creditable/creditablecardtype.js"];
+
+						files.push.apply( files, getValidatorFiles( ['.config.js', '.copy.js'] ) );
+
+						return files;
+					}()),
 					dest: 'dist/<%= pkg.name %>.config.js'
 				},
 				js: {
