@@ -1,6 +1,37 @@
-/*! validator - v2.0.3 - 2016-04-18
+/*! validator - v2.0.4 - 2016-04-20
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
+// Input a credit card number string, returns a key signifying the type of credit card it is
+(function( w ) {
+	"use strict";
+
+	var types = {
+		MASTERCARD: /^5[1-5]/,
+		VISA: /^4/,
+		DISCOVER: /^6(011|5)/,
+		AMEX: /^3[47]/
+	};
+
+	function CreditableCardType( val ) {
+		for( var j in types ) {
+			if( !!val.match( types[ j ] ) ) {
+				return j;
+			}
+		}
+
+		return -1;
+	}
+
+	CreditableCardType.TYPES = types;
+
+	if( typeof exports === "object" ) {
+		module.exports = CreditableCardType;
+	} else {
+		w.CreditableCardType = CreditableCardType;
+	}
+
+}( typeof global !== "undefined" ? global : this ));
+
 /* global Validator:true */
 /* global jQuery:true */
 (function( Validator, $ ) {
@@ -44,33 +75,34 @@
 }( Validator, jQuery ));
 /* global Validator:true */
 /* global jQuery:true */
+/* global CreditableCardType:true */
 (function( Validator, $ ) {
 	$.extend( Validator.prototype.config, {
 		"credit": [
 			{
 				"id": "mastercard",
-				"regex": "^5[1-5]",
+				"regex": CreditableCardType.TYPES.MASTERCARD,
 				"fullRegex": "^5[1-5]\\d{14}$",
 				"maxlength": "16",
 				"cvvlength": 3
 			},
 			{
 				"id": "visa",
-				"regex": "^4",
+				"regex": CreditableCardType.TYPES.VISA,
 				"fullRegex": "^4\\d{15}$",
 				"maxlength": "16",
 				"cvvlength": 3
 			},
 			{
 				"id": "discover",
-				"regex": "^6(011|5)",
+				"regex": CreditableCardType.TYPES.DISCOVER,
 				"fullRegex": "^6(011\\d{12}|5\\d{14})$",
 				"maxlength": "16",
 				"cvvlength": 3
 			},
 			{
 				"id": "amex",
-				"regex": "^3[47]",
+				"regex": CreditableCardType.TYPES.AMEX,
 				"fullRegex": "^3[47]\\d{13}$",
 				"maxlength": "15",
 				"cvvlength": 4
@@ -261,7 +293,7 @@
 (function( Validator, $ ) {
 	$.extend( Validator.prototype.config, {
 		"zip" : {
-			"pattern" : "^\\d{5}(-\\d{4})?$"
+			"pattern" : "^\\d{5}(-?\\d{4})?$"
 		}
 	});
 
@@ -272,7 +304,7 @@
 	$.extend( Validator.prototype.copy, {
 		"zip" : {
 			"placeholder": "00000",
-			"message" : "ZIP Code should be 5 digits."
+			"message" : "ZIP Code should be 5 or 9 digits."
 		}
 	});
 
