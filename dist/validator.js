@@ -1,4 +1,4 @@
-/*! validator - v2.0.4 - 2016-04-20
+/*! validator - v2.0.5 - 2016-04-22
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 (function( $, w ){
@@ -249,12 +249,7 @@
 
 	Validator.prototype.validatecredit = function( value ){
 		var number = value.replace( /\s/g , '').replace( /-/g, ''),
-			card = this._getCreditType( number ),
-			cvv = card && this.copy.cvv;
-
-		if( card && cvv ) {
-			this._findCvvField().attr( 'placeholder', cvv[ card.id ].placeholder );
-		}
+			card = this._getCreditType( number );
 
 		return card && new RegExp( card.fullRegex ).test( number ) || false;
 	};

@@ -1,4 +1,4 @@
-/*! validator - v2.0.4 - 2016-04-20
+/*! validator - v2.0.5 - 2016-04-22
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 // Input a credit card number string, returns a key signifying the type of credit card it is
@@ -23,12 +23,7 @@
 	}
 
 	CreditableCardType.TYPES = types;
-
-	if( typeof exports === "object" ) {
-		module.exports = CreditableCardType;
-	} else {
-		w.CreditableCardType = CreditableCardType;
-	}
+	w.CreditableCardType = CreditableCardType;
 
 }( typeof global !== "undefined" ? global : this ));
 
@@ -136,21 +131,16 @@
 		},
 		"cvv" : {
 			"message" : "Security code requires a valid card credit card number.",
-			"placeholder": "3–4 Digits",
 			"visa": {
-				"placeholder": "3 Digits",
 				"message": "Visa cards should have a 3 digit security code."
 			},
 			"mastercard": {
-				"placeholder": "3 Digits",
 				"message": "Mastercards should have a 3 digit security code."
 			},
 			"discover": {
-				"placeholder": "3 Digits",
 				"message": "Discover cards should have a 3 digit security code."
 			},
 			"amex": {
-				"placeholder": "4 Digits",
 				"message": "American Express cards should have a 4 digit security code."
 			}
 		}
