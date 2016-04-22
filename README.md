@@ -50,6 +50,3 @@ Check the [demo](http://filamentgroup.github.io/validator/examples/)
 
 ## Tests
 Run the [tests](http://filamentgroup.github.io/validator/test/)
-
-## Release History
-v0.1.0 - First release
