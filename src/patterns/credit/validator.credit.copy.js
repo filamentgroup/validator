@@ -30,21 +30,16 @@
 		},
 		"cvv" : {
 			"message" : "Security code requires a valid card credit card number.",
-			"placeholder": "3–4 Digits",
 			"visa": {
-				"placeholder": "3 Digits",
 				"message": "Visa cards should have a 3 digit security code."
 			},
 			"mastercard": {
-				"placeholder": "3 Digits",
 				"message": "Mastercards should have a 3 digit security code."
 			},
 			"discover": {
-				"placeholder": "3 Digits",
 				"message": "Discover cards should have a 3 digit security code."
 			},
 			"amex": {
-				"placeholder": "4 Digits",
 				"message": "American Express cards should have a 4 digit security code."
 			}
 		}

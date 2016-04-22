@@ -55,12 +55,7 @@
 
 	Validator.prototype.validatecredit = function( value ){
 		var number = value.replace( /\s/g , '').replace( /-/g, ''),
-			card = this._getCreditType( number ),
-			cvv = card && this.copy.cvv;
-
-		if( card && cvv ) {
-			this._findCvvField().attr( 'placeholder', cvv[ card.id ].placeholder );
-		}
+			card = this._getCreditType( number );
 
 		return card && new RegExp( card.fullRegex ).test( number ) || false;
 	};
