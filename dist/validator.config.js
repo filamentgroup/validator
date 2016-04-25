@@ -1,4 +1,4 @@
-/*! validator - v2.0.5 - 2016-04-22
+/*! validator - v2.0.6 - 2016-04-25
 * https://github.com/filamentgroup/validator
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 // Input a credit card number string, returns a key signifying the type of credit card it is
@@ -6,10 +6,10 @@
 	"use strict";
 
 	var types = {
-		MASTERCARD: /^5[1-5]/,
+		MASTERCARD: /^(2[2-7]|5[1-5])/, // 22-27 and 51-55
 		VISA: /^4/,
-		DISCOVER: /^6(011|5)/,
-		AMEX: /^3[47]/
+		DISCOVER: /^6(011|5)/, // 6011 or 65
+		AMEX: /^3[47]/ // 34 or 37
 	};
 
 	function CreditableCardType( val ) {
@@ -26,6 +26,63 @@
 	w.CreditableCardType = CreditableCardType;
 
 }( typeof global !== "undefined" ? global : this ));
+
+// Input a credit card number string, returns a key signifying the type of credit card it is
+(function( w, $ ) {
+	"use strict";
+
+	var lengths = {
+		MASTERCARD: 3,
+		VISA: 3,
+		DISCOVER: 3,
+		AMEX: 4
+	};
+
+	function CreditableSecurityCode( securityCodeElement ) {
+		this.$el = $( securityCodeElement );
+		this.$creditCard = this.$el.closest( "form" ).find( "[data-creditable-creditcard]" );
+
+		var self = this;
+		this.$creditCard.on( "change", function() {
+			self.updateSecurityCode();
+		});
+		this.updateSecurityCode();
+	}
+
+	CreditableSecurityCode.prototype.updateSecurityCode = function() {
+		var maxlen = this.getMaxlength();
+		if( maxlen ) {
+			this.$el.attr( "maxlength", maxlen );
+		} else {
+			this.$el.removeAttr( "maxlength" );
+		}
+		this.$el.attr( "placeholder", this.getPlaceholder( maxlen || 4 ) );
+	};
+
+	CreditableSecurityCode.prototype.getMaxlength = function() {
+		return lengths[ CreditableCardType( this.$creditCard.val() ) ];
+	};
+
+	CreditableSecurityCode.prototype.getPlaceholder = function( maxlen ) {
+		var len = maxlen || this.getMaxlength() || 4;
+		return ( new Array( len ) ).join( "0" ) + "0";
+	};
+
+	$(document).on( "enhance", function( e ) {
+		$( e.target ).find( "[data-creditable-securitycode]" ).each(function() {
+			var $t = $( this );
+			var key = "creditable-securitycode";
+
+			if( !$t.data( key ) ) {
+				$t.data( key, new CreditableSecurityCode( this ) );
+			}
+		});
+	});
+
+	CreditableSecurityCode.LENGTHS = lengths;
+	w.CreditableSecurityCode = CreditableSecurityCode;
+
+}( typeof global !== "undefined" ? global : this, jQuery ));
 
 /* global Validator:true */
 /* global jQuery:true */
@@ -71,36 +128,37 @@
 /* global Validator:true */
 /* global jQuery:true */
 /* global CreditableCardType:true */
+/* global CreditableSecurityCode:true */
 (function( Validator, $ ) {
 	$.extend( Validator.prototype.config, {
 		"credit": [
 			{
 				"id": "mastercard",
 				"regex": CreditableCardType.TYPES.MASTERCARD,
-				"fullRegex": "^5[1-5]\\d{14}$",
+				"fullRegex": "^(2[2-7]|5[1-5])\\d{14}$",
 				"maxlength": "16",
-				"cvvlength": 3
+				"cvvlength": CreditableSecurityCode.LENGTHS.MASTERCARD
 			},
 			{
 				"id": "visa",
 				"regex": CreditableCardType.TYPES.VISA,
 				"fullRegex": "^4\\d{15}$",
 				"maxlength": "16",
-				"cvvlength": 3
+				"cvvlength": CreditableSecurityCode.LENGTHS.VISA
 			},
 			{
 				"id": "discover",
 				"regex": CreditableCardType.TYPES.DISCOVER,
 				"fullRegex": "^6(011\\d{12}|5\\d{14})$",
 				"maxlength": "16",
-				"cvvlength": 3
+				"cvvlength": CreditableSecurityCode.LENGTHS.DISCOVER
 			},
 			{
 				"id": "amex",
 				"regex": CreditableCardType.TYPES.AMEX,
 				"fullRegex": "^3[47]\\d{13}$",
 				"maxlength": "15",
-				"cvvlength": 4
+				"cvvlength": CreditableSecurityCode.LENGTHS.AMEX
 			}
 		]
 	});
