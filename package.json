@@ -1,6 +1,6 @@
 {
   "name": "validator",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Lightweight validation library",
   "engines": {
     "node": ">= 0.8.0"
@@ -48,6 +48,6 @@
     "zip"
   ],
   "dependencies": {
-    "creditable": "^1.0.3"
+    "creditable": "^1.0.6"
   }
 }

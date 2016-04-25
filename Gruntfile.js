@@ -61,7 +61,10 @@
 				},
 				jsconfig: {
 					src: (function() {
-						var files = ["node_modules/creditable/creditablecardtype.js"];
+						var files = [
+							"node_modules/creditable/creditablecardtype.js",
+							"node_modules/creditable/creditablesecuritycode.js"
+						];
 
 						files.push.apply( files, getValidatorFiles( ['.config.js', '.copy.js'] ) );
 

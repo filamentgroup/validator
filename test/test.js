@@ -81,6 +81,12 @@
 		ok( this.credit.validatecredit( "5444 0000 0000 0000" ) );
 		ok( this.credit.validatecredit( "5444000000000000" ) );
 		ok( this.credit.validatecredit( "5444-0000-0000-0000" ) );
+		ok( this.credit.validatecredit( "2200-0000-0000-0000" ) );
+		ok( this.credit.validatecredit( "2300-0000-0000-0000" ) );
+		ok( this.credit.validatecredit( "2400-0000-0000-0000" ) );
+		ok( this.credit.validatecredit( "2500-0000-0000-0000" ) );
+		ok( this.credit.validatecredit( "2600-0000-0000-0000" ) );
+		ok( this.credit.validatecredit( "2700-0000-0000-0000" ) );
 		ok( !this.credit.validatecredit( "5444-0000-0000-000" ) );
 		ok( this.credit.validatecredit( "4147 0000 0000 0000" ) );
 		ok( this.credit.validatecredit( "4147000000000000" ) );
